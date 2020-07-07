@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <act_window
+            name="Share Contact"
+            id="share_contact_wizard_action"
+            res_model="contact.share.wizard"
+            binding_model="res.partner"
+            binding_views="form"
+            view_mode="form"
+            target="new"
+            groups="base.group_partner_manager"/>
+
+        <record id="share_contact_wizard_view" model="ir.ui.view">
+            <field name="name">Share Contacts</field>
+            <field name="model">contact.share.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Share Contact">
+                    <br/>
+                    <div>
+                        Select the users with you want to share this contact.
+                    </div>
+                    <br/><br/>
+                    <field name="user_ids"/>
+
+                    <footer>
+                        <button string="Apply" name="action_apply" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

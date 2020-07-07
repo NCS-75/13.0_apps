@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="google_contact_sync_view_form" model="ir.ui.view">
+            <field name="name">google.contacts.view.form</field>
+            <field name="model">google.contacts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <button type="object" name="g_contact_download" string="Import Contact" class="oe_highlight"/>
+                    <button type="object" name="g_contact_upload" string="Export Contact" class="oe_highlight" style="margin-left:10px;"/>
+                    <footer>
+                        <button style="display:none;"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="google_contacts_action" model="ir.actions.act_window">
+            <field name="name">Sync Contacts</field>
+            <field name="res_model">google.contacts</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="google_contacts_main_menu" name="Google Contact"
+            web_icon="sync_google_contact,static/description/icon.png"
+            sequence="20" groups="base.group_user"/>
+
+        <menuitem id="base_contacts_menu" name="Contacts"
+            parent="google_contacts_main_menu" action="contacts.action_contacts" sequence="1"/>
+
+        <menuitem id="google_contacts_menu" name="Google Contact"
+            parent="google_contacts_main_menu" sequence="2"/>
+
+        <menuitem id="google_contacts_contacts_menu" name="Contacts"
+            parent="google_contacts_menu" sequence="1"
+            action="google_contacts_contact_action"/>
+
+        <menuitem id="google_contacts_sub_menu" name="Sync Contacts"
+            parent="google_contacts_menu" sequence="2"
+            action="google_contacts_action"/>
+
+        <menuitem id="sync_google_contacts_menu"
+            name="Sync Contacts"
+            action="google_contacts_action"
+            parent="contacts.menu_contacts"
+            sequence="2"/>
+
+        <record model="ir.ui.menu" id="contacts.res_partner_menu_config">
+            <field name="sequence">99</field>
+        </record>
+
+    </data>
+</odoo>

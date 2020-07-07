@@ -1,0 +1,467 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Google contacts synchronization</h2>
+    </div>
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12" style="font-size: large;">
+            <div class="row">
+                <div class="col-md-9">
+                    <p>
+                        This application facilitates users and managers to synchronize their Google account related contacts with Odoo.
+                    </p>
+                    <p>
+                        Users can import, export, update and delete contacts between Google contacts and Odoo.
+                    </p>
+                    <p>
+                        Synchronization facilitates users to keep their Google contacts updated in their Odoo account.
+                    </p>
+                    <p style="font-size: 21px; color: #281fdb; font-style: italic;">
+                        This module is also compatible with our odoo v13 <a href="https://www.odoo.com/apps/themes/13.0/allure_backend_theme" target="_blank"><b>Allure Theme </b> <img src="allure_icon.png" style="width: 10%; height: auto"/></a>
+                        <img src="new-gif-icon-14_1.gif" style="width: 10%; height: auto; padding-bottom: 30px;" /><br/>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <div class="box_data" style="background-color:#F0F4F7;color: #875A7B">
+                        <h4 style="text-align: center;padding-top: 15px;">This module is compatible with</h4>
+                        <ul style="padding: 20px;">
+                            <li class="Community" style="list-style: none;margin-bottom: 15px;">
+                                <span style="margin-right: 10px;"><img src="tick.svg" style="width: 25px;height: 25px;"/></span>
+                                <span>Community</span>
+                            </li>
+                            <li class="Enterprise" style="list-style: none;margin-bottom: 15px;">
+                                <span style="margin-right: 10px;"><img src="tick.svg" style="width: 25px;height: 25px;"/></span>
+                                <span>Enterprise</span>
+                            </li>
+                            <li class="odoo_sh" style="list-style: none;margin-bottom: 15px;">
+                                <span style="margin-right: 10px;"><img src="tick.svg" style="width: 25px;height: 25px;"/></span>
+                                <span>Odoo.sh</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <p style="font-size: 20px;opacity: 1;">
+                <img src="edit.png" height="45px" width="45px">
+                <strong>Note: </strong>please check file 'README.rst' for required python package installation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <h2 class="oe_slogan"><img src="document.png" height="45px" width="45px"> Key Features</h2>
+        <div class="oe_span12" style="font-size: large;width:100%;">
+            <ul>
+                <div>
+                    <i class="fa fa-check" style="color: #cd2d47;font-size: 20px;"/> Import Google contacts in Odoo
+                </div>
+                <div>
+                    <i class="fa fa-check" style="color: #cd2d47;font-size: 20px;"/> Export Odoo contacts to Google
+                </div>
+                <div>
+                    <i class="fa fa-check" style="color: #cd2d47;font-size: 20px;"/> Update contacts while import from Google to Odoo
+                </div>
+                <div>
+                    <i class="fa fa-check" style="color: #cd2d47;font-size: 20px;"/> Update contacts while export from Odoo to Google
+                </div>
+                <div>
+                    <i class="fa fa-check" style="color: #cd2d47;font-size: 20px;"/> Delete Contacts functionality
+                </div>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan"><img src="cloud.png" height="45px" width="45px"> Setup in Google</h2>
+            <p style="font-size: 20px;opacity: 1;">
+                To use Google contacts API users need to generate Google Client ID and Google Client Secret.
+            </p>
+            <p style="font-size: 20px;opacity: 1;">
+                Steps are as following
+            </p>
+
+            <p style="font-size: 20px;opacity: 1;">Go to<a href="https://console.developers.google.com" target="_blank"> https://console.developers.google.com</a></p>
+
+            <p style="font-size: 20px;opacity: 1;">
+                Sign In with your Google account.
+            </p>
+            <p style="font-size: 20px;opacity: 1;">
+                Create New Project
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_1.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Enable Contacts API
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_12.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Create Credentials and select 'Oauth client ID'.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_2.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Configure Consent Screen.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_3.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_4.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Create a Client ID. Enter the name of the application and the allowed pages on which you will be redirected.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_5.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_6.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan"><img src="setup.png" height="45px" width="45px"> Setup in Odoo</h2>
+            <p style="font-size: 20px;opacity: 1;">
+                Install <strong>Google Contact Synchronization</strong> App from the Apps menu
+            </p>
+            <p style="font-size: 20px;opacity: 1;">
+                Go to <strong>Settings -> General Settings</strong> and enter your <strong>Client ID</strong> and <strong>Client Secret</strong> in Google Contacts option.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_7.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan"><img src="export.png" height="45px" width="45px"> Export Contacts</h2>
+            <p style="font-size: 20px;opacity: 1;">
+                Go to <strong>Google Contact -> Sync Contacts</strong> and click 'Export Contact' button.
+            </p>
+            <p style="font-size: 20px;opacity: 1;">
+                Odoo Contacts
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_9.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Odoo contacts are exported in related user's Google account successfully.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_11.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan"><img src="import.png" height="45px" width="45px"> Import Contacts</h2>
+            <!-- <p style="font-size: 20px;opacity: 1;">
+                Go to <strong>Google Contact -> Sync Contacts</strong> and click 'Import Contact' button.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_08.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div> -->
+            <p style="font-size: 20px;opacity: 1;">
+                Contacts in Google
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_8.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <!-- Import button with highlighted buuton add screenshot here -->
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Go to <strong>Google Contact -> Sync Contacts</strong> and click 'Import Contact' button.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_08.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                Imported contact in Odoo
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_10.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan"><img src="schedule.png" height="45px" width="45px"> Scheduler Action</h2>
+            <p style="font-size: 20px;opacity: 1;">
+                From Odoo to Google 'Export Google Contacts' scheduler will run at configured interval time and will export all contacts to Google from Odoo automatically.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_18_merge.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <br/>
+            <p style="font-size: 20px;opacity: 1;">
+                From Google to Odoo 'Import Google Contacts' scheduler will run at configured interval time and will import all contacts from Google to Odoo automatically.
+            </p>
+            <div class="oe_span12" style=" margin-top: 15px;width: 100%;">
+                <img src="contact_19_merge.png" style="width: 100%; height: auto; margin: auto; border: 1px solid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+             <h2 class="oe_slogan"><a href="http://www.synconics.com/" style="color: #1b394e">Suggested Products</a></h2>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div id="slider_data" class="row carousel slide mt64 mb32" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="min-height: 0px;">
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/restapi/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/rest_api.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Odoo REST API
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/webhooks/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/web_hook.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Odoo Webhook
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/xero_connector/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/xero.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Xero Connector
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item" style="min-height: 0px;">
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/google_hangouts_connector/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/hangouts.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Google Hangouts Connector
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/sync_2fa/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/two_factor.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Two Factor Authentication
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float: left;
+                ">
+                    <a href="https://apps.odoo.com/apps/modules/12.0/sync_global_search/" target="_blank">
+                        <div style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);border-radius: 10px;text-align: center;">
+                           <img class="img img-responsive center-block" style="border-top-left-radius: 10px;border-top-right-radius: 10px;    height: 125px;" src="suggested_product/globle_search.png">
+                           <h4 class="mt0" style="padding:6% 4%;text-align: center;white-space: nowrap;width: 100%;overflow: hidden;text-overflow: ellipsis;font-family: Roboto-medium;">
+                              Global Search
+                           </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#slider_data" data-slide="prev" style="left:-25px;width: 35px;color: #000;">
+        <span class="carousel-control-prev-icon"><i class="fa fa-chevron-left" style="font-size:24px"></i></span>
+        </a>
+        <a class="carousel-control-next" href="#slider_data" data-slide="next" style="right:-25px;width: 35px;color: #000;">
+        <span class="carousel-control-next-icon"><i class="fa fa-chevron-right" style="font-size:24px"></i></span>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced" style="width: 100%;">
+        <div class="oe_span12" style="width: 100%;">
+            <h2 class="oe_slogan" style="color: #1b394e">Free Support</h2>
+        </div>
+        <div class="oe_span12" style="width: 100%;">
+            <span>1) One month free bug support period will be offered pertaining to any one server used, testing or live.</span><br/>
+            <span>2) If an error appears in our app due to other custom modules installed in your system, we will charge for our efforts to resolve those errors. </span><br/>
+            <span>3) Please refer the document for configuration. If you need our support for configuration, please request our paid support. </span><br/>
+            <span>4) Please note that you are not allowed to distribute or resell this module after purchase. </span><br/>
+            <span>5) This module is tested and working on Odoo vanilla with Ubuntu OS. </span><br/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan"><a href="https://support.synconics.com/helpdesk/support-1/submit" style="color: #000000 !important;"> Get Help & Support</a></h2>
+        </div>
+        <div class="oe_slogan oe_spaced text-center">
+            <a class="btn btn-success mt8" title="Get Help !" style="background-color: rgb(31, 16, 140); color: rgb(255, 255, 255) !important; position: relative; overflow: hidden;" href="https://support.synconics.com/helpdesk/support-1/submit"><span class="o_ripple" style="height: 61px; width: 61px; top: -12.9688px; left: -8.76562px;"></span> Help & Support </a>&nbsp;&nbsp;
+            <a class="btn btn-success mt8" title="Request New Features now !" style="background-color: rgb(31, 16, 140); color: rgb(255, 255, 255) !important; position: relative; overflow: hidden;" href="http://www.synconics.com/opensource-erp-implementation-odoo-partner-india-gujarat-ahmedabad-expert-company-contact-us/"> Request New Features </a>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_slogan oe_spaced">
+            <span style="font-size: 20px">Checkout Other Apps Developed By Synconics Technologies <a href="https://apps.odoo.com/apps/modules/browse?search=synconics">Click Here</a></span>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12" style="float: none;">
+            <h2 class="oe_slogan"><a href="http://www.synconics.com/" style="color: #000000 !important;"> Our Services</a></h2>
+        </div>
+        <div class="oe_menu" style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-onpremise-cloudhosting-installation-expert/">Odoo ERP Installation</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-version-legacy-system-migration-upgradation-expert/">Odoo ERP Migration</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/organizational-digital-strategy-legacy-system-transformation-modernisation/">Digital Strategy</a>
+            </li>
+
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-module-configuration-setting-expert/">Odoo ERP configuration</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-onsite-onpremise-remote-working-monthly-projectwise-dedicated-functional-technical-expert-resources/">Odoo ERP Staffing</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/organizational-business-process-reengineering-digital-transformation-system-application-technology-selection/">Digital Technology Selection</a>
+            </li>
+
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-module-customization-expert/">Odoo ERP Customization</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-onpremise-remote-functional-training-by-expert-trainers/">Odoo Functional Training</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/organisational-digital-transformation-system-application-technology-selection-implementation/">Digital Transformation Implementation</a>
+            </li>
+
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-new-module-product-development-expert/">Odoo ERP New Module Development</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-onpremise-remote-technical-training-by-expert-trainers/">Odoo ERP Technical Training</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/organizational-business-process-reengineering-digital-transformation-legacy-system-application-technology-migration-modernisation/">Legacy Modernization</a>
+            </li>
+
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-integration-e-commerce-payment-gateway-document-management-shipping-accounting/">Odoo ERP Integrations</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/odoo-opensource-erp-expert-support-services/">Odoo ERP Support</a>
+            </li>
+            <li class="oe_flex_li" style="flex: 0 0 30%;text-align: left;">
+                <a href="http://www.synconics.com/organizational-business-process-reengineering-digital-transformation/">Organizational Transformation</a>
+            </li>
+
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced text-center">
+        <div class="oe_span12">
+            <span style="font-size: 20px;text-align: right;"><h2 class="oe_slogan"><a href="http://www.synconics.com/" style="color: #000000 !important;"> Our Contact Details</a></h2></span>
+            <span class="o_ripple" style="background-color: rgb(31, 16, 140); color: rgb(255, 255, 255) !important; position: relative; overflow: hidden;height: 61px; width: 61px; top: -12.9688px; font-size: 18px;text-align: right;padding: 6px 12px;border-radius: 4px;border: 1px solid transparent;border-color: #4cae4c;z-index:1;">
+                     E-mail :
+                    <a href="http://www.synconics.com/opensource-erp-implementation-odoo-partner-india-gujarat-ahmedabad-expert-company-contact-us/" style="color: rgb(255, 255, 255) !important;">contact@synconics.com</a> |
+                    Skype : synconics.technologies  |
+                    Mobile : +91-942-686-4274
+
+            </span>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <span style="font-size: 20px">For product demo, please generate a ticket and mention your preferred time and date. Please make sure the demo timing you mentioned are as per Indian Standard Time (IST), between 10:30 AM to 7:00 PM (IST), Monday to Friday.</span>
+        </div>
+    </div>
+</section>

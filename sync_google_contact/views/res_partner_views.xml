@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sync_google_contact_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="before">
+                    <field name="middle_name" default_focus="1" placeholder="Middle Name"/>
+                    <field name="last_name" default_focus="1" placeholder="Last Name"/>
+                </field>
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="create_uid"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="string">Work Phone</attribute>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name="home_phone"/>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="after">
+                  <field name="fax"/>
+                  <field name="home_fax"/>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page name='users' string="Users">
+                        <field name="user_ids"/>
+                        <field name="google_contact_ids">
+                          <tree>
+                            <field name="google_contacts_id"/>
+                            <field name="google_contacts_account"/>
+                            <field name="user_id"/>
+                          </tree>
+                        </field>
+                    </page>
+
+                </xpath>
+            </field>
+      </record>
+
+      <record id="google_contacts_contact_action" model="ir.actions.act_window">
+          <field name="name">Contacts</field>
+          <field name="res_model">res.partner</field>
+          <!-- <field name="view_type">form</field> -->
+          <field name="view_mode">tree,form</field>
+          <field name="domain">[('google_contact','=',True)]</field>
+      </record>
+
+    </data>
+</odoo>
