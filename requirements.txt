@@ -1,2 +1,3 @@
 requests_oauthlib==0.8.0
 gdata==2.0.18
+oauth2client==4.1.3
