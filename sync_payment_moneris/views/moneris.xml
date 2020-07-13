@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="moneris_acquirer_button">
+        <div>
+            <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+            <input type="hidden" name="ps_store_id" t-att-value="ps_store_id"/>
+            <input type="hidden" name="hpp_key" t-att-value="hpp_key"/>
+            <input type="hidden" name="charge_total" t-att-value="amount or '0.0'"/>
+            <input type="hidden" name="rvaroid" t-att-value="item_number"/>
+            <input type="hidden" name="rvarret" t-att-value="custom"/>
+            <input type="hidden" name="rvarreturn_url" t-att-value="rvarreturn_url"/>
+            <input type="hidden" name="cmd" t-att-value="cmd"/>
+            <input type="hidden" name="business" t-att-value="business"/>
+            <input type="hidden" name="item_name" t-att-value="item_name"/>
+            <input type="hidden" name="item_number" t-att-value="item_number"/>
+            <input type="hidden" name="order_id" t-att-value="order_id"/>
+            <input type="hidden" name="amount" t-att-value="amount or '0.0'"/>
+            <input t-if="handling" type="hidden" name="handling" t-att-value="handling"/>
+            <input type="hidden" name="currency_code" t-att-value="currency_code"/>
+            <!-- partner / address data -->
+            <input type="hidden" name="partner_id" t-att-value="partner_id"/>
+            <input type="hidden" name="bill_address_one" t-att-value="bill_address_one"/>
+            <input type="hidden" name="bill_city" t-att-value="bill_city"/>
+            <input type="hidden" name="bill_country" t-att-value="bill_country"/>
+            <input type="hidden" name="email" t-att-value="email"/>
+            <input type="hidden" name="bill_first_name" t-att-value="bill_first_name"/>
+            <input type="hidden" name="bill_postal_code" t-att-value="bill_postal_code"/>
+            <input type="hidden" name="bill_state_or_province" t-att-value="bill_state_or_province"/>
+            <input type="hidden" name="bill_phone" t-att-value="bill_phone"/>
+            <input type="hidden" name="cust_id" t-att-value="cust_id"/>
+            <input type="hidden" name="ship_country" t-att-value="ship_country"/>
+            <input type="hidden" name="ship_company_name" t-att-value="ship_company_name"/>
+            <input type="hidden" name="ship_state_or_province" t-att-value="ship_state_or_province"/>
+            <input type="hidden" name="ship_address_one" t-att-value="ship_address_one"/>
+            <input type="hidden" name="ship_first_name" t-att-value="ship_first_name"/>
+            <input type="hidden" name="ship_postal_code" t-att-value="ship_postal_code"/>
+            <input type="hidden" name="ship_city" t-att-value="ship_city"/>
+            <input type="hidden" name="ship_phone" t-att-value="ship_phone"/>
+            <t t-foreach="items" t-as="item">
+                <input type="hidden" t-att-name="'id' + item['count']" t-att-value="item['id']"/>
+                <input type="hidden" t-att-name="'description' + item['count']" t-att-value="item['name']"/>
+                <input type="hidden" t-att-name="'quantity' + item['count']" t-att-value="item['quantity']"/>
+                <input type="hidden" t-att-name="'price' + item['count']" t-att-value="item['price']"/>
+                <input type="hidden" t-att-name="'subtotal' + item['count']" t-att-value="item['subtotal']"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="moneris_s2s_form">
+        <input type="hidden" name="data_set" data-create-route="/payment/moneris/s2s/create"/>
+        <div t-attf-class="row mt8 #{'' if bootstrap_formatting else 'o_card_brand_detail'}">
+            <div t-att-class="'form-group col-md-12' if bootstrap_formatting else 'form-group'">
+                <input type="tel" name="cc_number" id="cc_number" class="form-control" placeholder="Card number" data-is-required="true"/>
+                <div class="card_placeholder"></div>
+                <div class="visa"></div>
+                <input type="hidden" name="cc_brand" value=""/>
+            </div>
+            <div t-att-class="'form-group col-md-5' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_holder_name" id="cc_holder_name" class="form-control" placeholder="Cardholder name" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-md-3' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_expiry" id="cc_expiry" class="form-control" maxlength="7" placeholder="Expires (MM / YY)" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-md-4' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_cvc" id="cc_cvc" class="form-control" maxlength="4" placeholder="CVC" data-is-required="true"/>
+            </div>
+        </div>
+        <input type="hidden" name="acquirer_id" t-att-value="id"/>
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+        <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+    </template>
+
+    <template id="save_card_list" inherit_id="payment.payment_tokens_list">
+        <xpath expr="//div[hasclass('card')]/t[@t-foreach='acquirers']/t[1]/div[1]" position="attributes">
+            <attribute name="t-if">not request.env.user._is_public()</attribute>
+        </xpath>
+    </template>
+
+    <template id="msg_hide_public" inherit_id="account_payment.portal_invoice_page_inherit_payment">
+        <xpath expr="//div[@t-if='existing_token']" position="replace">
+            <div class="panel-body" t-if="existing_token and not request.env.user._is_public()">
+                <div class="col-md-offset-3 col-md-6">
+                    <i class="fa fa-info"></i> You have credits card registered, you can log-in to be able to use them.
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="confirmation_status" inherit_id="website_sale.payment_confirmation_status">
+        <xpath expr="//div[hasclass('card-header')]/t[last()]" position="replace">
+            <t t-if="payment_tx_id.state == 'authorized'">
+                <span>Your payment has been authorized.</span>
+            </t>
+        </xpath>
+    </template>
+</odoo>
