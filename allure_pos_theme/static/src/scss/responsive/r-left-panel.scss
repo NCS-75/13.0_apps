@@ -1,0 +1,21 @@
+@mixin r-left-panel() {
+    .pos-systray {
+        .systray-item {
+            position: fixed;
+            left: 65px;
+            right: 0;
+            width: auto;
+            .username , .header-button {
+                font-size: var(--pos-font-size);
+            }
+            .close_button {
+                &:before {
+                    font-size: var(--pos-font-size);
+                }
+            }
+            &:before {
+                display: none;
+            }
+        }
+    }
+}

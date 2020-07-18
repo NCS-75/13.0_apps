@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_common" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+          <!-- scss -->
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/variables.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/othere_variables.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/animation.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/fonts.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/left_panel.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/screen_frame.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/product_screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/payment_screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/contant_layout.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/clientlist-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/splitbill-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/scale-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/receipt-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/wizard.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/login-overlay.scss"/>
+
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/layout.scss"/>
+          <!-- Responsive -->
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-product-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-control-panel.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-client-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-receipt-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-payment-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-splitbill-screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-left-panel.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/responsive/r-layout.scss"/>
+          <!-- js -->
+          <script src="/allure_pos_theme/static/src/js/common.js"/>
+          <script src="/allure_pos_theme/static/src/js/pos_crome.js"/>
+          <script src="/allure_pos_theme/static/src/js/screens.js"/>
+          <script src="/allure_pos_theme/static/src/js/crome.js"/>
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="Allure theme assets"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+          <script src="/allure_pos_theme/static/src/js/dashboard.js"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_theme/static/src/scss/dashbord.scss"/>
+          <link rel="stylesheet"
+                href="/allure_pos_theme/static/src/lib/minicolors/jquery.minicolors.css"/>
+          <script type="text/javascript"
+                  src="/allure_pos_theme/static/src/lib/minicolors/jquery.minicolors.min.js"/>
+        </xpath>
+    </template>
+
+    <template id="index" inherit_id="point_of_sale.index" name="pos index">
+      <xpath expr="//meta[@name='viewport']" position="replace">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,56 @@
+:root {
+    --pos-font-size: 15px;
+}
+
+body.ad_mobile {
+    --pos-font-size: 13px;
+}
+// Common color
+$white: white;
+$body-bg: $white;
+$light-color: #f8f9fa;
+$black: #000;
+// Hover Color
+$tr-hover: rgba($brand-primary, .03);
+$tr-hover-shadow: rgba($brand-primary,0.8);
+$tr-header: rgb(237, 237, 237);
+// Background Light
+$bg-light: rgba($brand-primary, .5);
+$normal-color: $Label-value;
+// Bootstrap color for list row
+$text-info: #00b3e5;
+$text-danger: #ca0c05;
+$text-success: #00aa00;
+$text-warning: #e47e01;
+$text-primary: #005ba9;
+$text-muted: #717171;
+// Denger-light
+$text-danger-light: rgba($text-danger, .01);
+//== Colors
+$brand-success: #00a04a;
+$brand-info: #87c0d1;
+$brand-warning: #f0ad4e;
+$brand-danger: #dc6965;
+$brand-optinal: #F9F9F9;
+// Font sizing
+$font-size-13: 11px;
+$font-size-12: 100%;
+$font-size-11: 120px;
+$font-size-10: 50px;
+$font-size-9: 36px;
+$font-size-8: 16px;
+$font-size-7: 30px;
+$font-size-4: 22px;
+$font-size-5: 20px;
+$font-size-6: 19px;
+$font-size-0: 18px;
+$font-size-1: 13px;
+$font-size-2: 12px;
+$font-size-3: 10px;
+$font-size-n: 0px;
+// Font Weight
+$font-weight-4: 400;
+$font-weight-5: 500;
+$font-weight-6: 600;
+$font-weight-7: 700;
+$font-weight-b: bold;

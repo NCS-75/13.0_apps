@@ -1,0 +1,107 @@
+@mixin popup_layout() {
+    .popups {
+        .modal-dialog:not(.oe_hidden) {
+            background-color: $bg-light;
+            .popup {
+                border-radius: 0;
+                background-color: $white;
+                &.popup-selection {
+                    .title {
+                        border-radius: 0;
+                        background-color: $white;
+                    }
+                    .selection {
+                        border-top: 3px solid $brand-secondary;
+                        .selection-item {
+                            background-color: transparent;
+                            &:nth-child(odd) {
+                                background-color: transparent;
+                            }
+                            &.selected {
+                                background-color: $brand-secondary !important;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+                &.popup-error {
+                    color: $text-danger;
+                    header {
+                        background-color: $brand-danger;
+                    }
+                }
+                &.popup-number {
+                    .popup-input {
+                        border-radius: 0;
+                    }
+                    .popup-numpad {
+                        width: 70%;
+                        text-align: center;
+                        display: table;
+                        .input-button {
+                            width: calc(33.33% - 7px);
+                            margin: 4px 4px 0 auto;
+                        }
+                    }
+                }
+                .footer {
+                    background-color: $white;
+                    border-top: 1px solid $border;
+                    height: auto;
+                    margin-bottom: 5px;
+                    .button {
+                        background-color: rgba($brand-secondary,.1);
+                        border-left: 0;
+                        border-top: 0;
+                        border-right: 1px solid $border;
+                        border-bottom: 1px solid $border;
+                        margin: 6px 4px auto 0;
+                        border-radius: 0;
+                        &:active {
+                            background-color: $brand-secondary;
+                            color: $white;
+                        }
+                    }
+                }
+                .popup-numpad {
+                    .input-button , .mode-button {
+                        border-radius: 0;
+                        color: $Label-value;
+                        border-left: 0;
+                        border-top: 0;
+                        border-bottom: 1px solid $border;
+                        border-right: 1px solid $border;
+                        background-color: rgba($brand-secondary,.1);
+                    }
+                }
+                header {
+                    border-radius: 0;
+                }
+            }
+            .popup-input.active , .popup input:focus, textarea:focus {
+                box-shadow: 0px 0px 0px 3px $brand-secondary;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .modal-dialog {
+                border-radius: 0;
+                .popup {
+                    max-width: 500px;
+                    width: auto;
+                    main.body {
+                        height: auto;
+                    }
+                    &.popup-error {
+                        top: 5px;
+                        left: 5px;
+                        right: 21px;
+                        bottom: 21px;
+                        max-width: initial;
+                        width: unset;
+                        height: unset;
+                    }
+                }
+            }
+        }
+    }
+}

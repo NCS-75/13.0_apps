@@ -1,0 +1,126 @@
+@mixin r-payment-screen() {
+    &.payment-screen {
+        .screen-content {
+            display: flex;
+            flex-direction: column-reverse;
+            .top-content {
+                position: initial;
+                order: 10;
+                margin-right: 0;
+                left: 0;
+                right: 0;
+                justify-content: center;
+                align-items: center;
+                & > h1 {
+                    display: none;
+                }
+                & > .button {
+                    font-size: var(--pos-font-size);
+                    &.oe_filter {
+                        margin-left: auto !important;
+                    }
+                }
+                .other-buttons {
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    .payment-buttons {
+                        & > * {
+                            @media screen and (max-width: 768px) {
+                                width: calc(50% - 35px);
+                            }
+                        }
+                    }
+                }
+            }
+            .left-content {
+                position: relative;
+                left: auto;
+                right: 0;
+                width: auto;
+                z-index: 1;
+                top: auto;
+                right: auto;
+                bottom: auto;
+                border-left: 0;
+                .paymentmethods-container {
+                    padding: 2px 0 2px 5px;
+                    .paymentmethods {
+                        flex-wrap: nowrap;
+                        overflow: auto;
+                        .button {
+                            padding: 15px 6px;
+                            margin-right: 4px;
+                            margin-bottom: 0;
+                            line-height: unset;
+                            font-size: var(--pos-font-size);
+                            background-color: $brand-secondary;
+                            color: $white;
+                        }
+                    }
+                }
+                .payment-numpad {
+                    .numpad {
+                        display: flex;
+                        flex-wrap: wrap;
+                        button {
+                            width: auto;
+                            flex: 1 1 22%;
+                            height: 36px;
+                            padding: 0;
+                            margin: 2px 2px;
+                            display: flex;
+                            justify-content: center;
+                            vertical-align: middle;
+                            align-items: center;
+                            line-height: unset;
+                            @media screen and (min-height: 700px) {
+                                height: 56px;
+                                font-size: var(--pos-font-size);
+                            }
+                            &:active {
+                                background-color: $brand-secondary;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+            }
+            .right-content {
+                position: relative;
+                right: 0;
+                left: 0;
+                width: auto;
+                top: auto;
+                right: auto;
+                flex: 1;
+                .paymentlines-container {
+                    .paymentlines {
+                        thead {
+                            .label > * {
+                                font-size: var(--pos-font-size);
+                                padding: 4px;
+                            }
+                        }
+                        tbody {
+                            .paymentline {
+                                font-size: var(--pos-font-size);
+                                & > * {
+                                    padding: 4px 12px;
+                                }
+                                &.selected {
+                                    font-size: var(--pos-font-size);
+                                }
+                            }
+                        }
+                    }
+                    .paymentlines-empty {
+                        .total {
+                            font-size: 38px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

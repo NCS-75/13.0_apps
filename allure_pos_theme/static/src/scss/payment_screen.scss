@@ -1,0 +1,177 @@
+@mixin payment-screen() {
+    .payment-screen {
+        .screen-content {
+            .left-content {
+                right: 0;
+                left: auto;
+                width: 424px;
+                background-color: $white;
+                top: 0;
+                border-left: 1px solid $border;
+                border-right: 0;
+                display: flex;
+                overflow: auto;
+                flex-direction: column;
+                .paymentmethods-container {
+                    flex: 1 1 100%;
+                    overflow: auto;
+                    padding: 5px;
+                    padding-right: 0;
+                    .paymentmethods {
+                        display: flex;
+                        flex-wrap: wrap;
+                        height: auto;
+                        margin: 0;
+                        .button {
+                            border-radius: 0;
+                            display: inline-flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex: 1 1 30%;
+                            margin-right: 4px;
+                            border: 1px solid $border;
+                            font-size: var(--pos-font-size);
+                            border-left: 0;
+                            border-top: 0;
+                            margin-bottom: 4px;
+                            background-color: rgba($brand-secondary,.1);
+                            &:active{
+                                background-color: $brand-secondary;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+                .payment-numpad {
+                    width: 100%;
+                    padding: 0;
+                    .numpad {
+                        width: auto;
+                        border-radius: 0;
+                        background-color: $white;
+                        border-top: 0;
+                        border-left: 0;
+                        padding-left: 4px;
+                        padding-bottom: 4px;
+                        display: block;
+                        button {
+                            width: calc(25% - 4px);
+                            margin: 6px 4px auto 0;
+                            height: 55px;
+                            background-color: rgba($brand-secondary, .1);
+                            border-radius: 0;
+                            color: $Label;
+                            &:active {
+                                background-color: $brand-secondary;
+                                color: $white;
+                            }
+                            &.numpad-backspace {
+                                &:active {
+                                    img {
+                                        filter: invert(100%);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .right-content {
+                left: 0;
+                right: 425px;
+                background-color: $white;
+                top: 53px;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                .paymentlines-container {
+                    padding: 0;
+                    border-bottom: 0;
+                    flex: 1 1 100%;
+                    overflow: auto;
+                    .paymentlines {
+                        .paymentline {
+                            &.selected {
+                                background-color: $brand-secondary;
+                            }
+                            .edit {
+                                box-shadow: 0px 0px 0px 3px $brand-secondary;
+                                color: $brand-secondary;
+                            }
+                            .col-change.highlight {
+                                background-color: $brand-primary;
+                            }
+                        }
+                    }
+                    .paymentlines-empty {
+                        .total {
+                            color: $brand-secondary;
+                        }
+                    }
+                }
+            }
+            .top-content {
+                height: 53px;
+                display: flex;
+                position: initial;
+                margin-right: 425px;
+                h1 {
+                    margin: 10px 0;
+                    flex: 1;
+                }
+                .button {
+                    position: relative;
+                    &.back {
+                        margin-left: 52px;
+                    }
+                    &.next {
+                        margin: auto 4px auto 0 !important;
+                    }
+                    &.oe_money, &.oe_filter {
+                        margin: auto 4px auto 0 !important;
+                    }
+                    &.js_set_customer {
+                        margin: auto 4px auto 0 !important;
+                        .js_customer_name {
+                            line-height: 0;
+                            display: inline-block;
+                            vertical-align: middle;
+                            font-size: 0;
+                            .fa {
+                                font-size: var(--pos-font-size);
+                            }
+                        }
+                    }
+                }
+                .other-buttons {
+                    position: absolute;
+                    top: 52px;
+                    bottom: 0;
+                    left: 0;
+                    right: 425px;
+                    z-index: 11;
+                    background-color: $white;
+                    border: 1px solid $border;
+                    padding: 10px;
+                    overflow: auto;
+                    padding: 0;
+                    .payment-buttons {
+                        display: flex;
+                        flex-flow: row wrap;
+                        padding: 0px;
+                        padding-left: 4px;
+                        width: 100%;
+                        & > * {
+                            width: calc(25% - 35px);
+                            float: left;
+                            min-height: 52px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

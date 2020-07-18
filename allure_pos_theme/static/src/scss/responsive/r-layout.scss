@@ -1,0 +1,44 @@
+body.ad_mobile {
+    .o_action_manager {
+        .pos {
+            .pos-content {
+                .window {
+                    .subwindow {
+                        .subwindow-container {
+                            .subwindow-container-fix {
+                                @include r-product-screen();
+                                .screen {
+                                    @include control-panel();
+                                    @include r-client-screen();
+                                    @include r-receipt-screen();
+                                    @include r-payment-screen();
+                                    @include r-splitbill-screen();
+                                    &:not(.product-screen):not(.floor-screen) .screen-content .top-content .button.back {
+                                        font-size: 0;
+                                        display: flex;
+                                        align-items: center;
+                                        & > .fa {
+                                            font-size: var(--pos-font-size);
+                                            &:before {
+                                                content: "\f053";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .pos-topheader {
+                @include r-left-panel();
+            }
+            .input-button, .mode-button {
+                font-size: var(--pos-font-size);
+            }
+        }
+    }
+    input[name="barcode"] {
+        opacity: 0;
+    }
+}

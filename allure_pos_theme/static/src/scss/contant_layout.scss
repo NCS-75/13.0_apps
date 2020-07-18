@@ -1,0 +1,23 @@
+@mixin pos_contant_layout() {
+    top: 0;
+    background-color: $white;
+    .window {
+        .subwindow {
+            .subwindow-container {
+                .subwindow-container-fix {
+                    @include product-screen();
+                    @include screen-frame();
+                    @include payment-screen();
+                    @include clientlist-screen();
+                    @include splitbill-screen();
+                    @include scale-screen();
+                    @include receipt-screen();
+                    @include login-overlay();
+                    .screen:not(.oe_hidden){
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+    }
+}

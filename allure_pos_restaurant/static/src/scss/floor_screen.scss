@@ -1,0 +1,125 @@
+@mixin floor-scrren() {
+    .floor-screen {
+        .screen-content-flexbox {
+            .floor-map {
+                box-shadow: none;
+                .tables {
+                    margin-top: 50px;
+                    border: 2px dashed $border;
+                    .table.selected .table-handle {
+                        background-color: $brand-secondary;
+                    }
+                }
+                .edit-bar , .edit-button {
+                    border-radius: 0;
+                }
+                @media (max-width: 1024px) {
+                    .tables {
+                        zoom: 100%;
+                        max-width: 1024px;
+                        margin: auto;
+                        margin-top: 54px;
+                        height: 100%;
+                        max-height: 90%;
+                        border-radius: 0px 0px 6px 6px;
+                        border: dashed 3px $white;
+                    }
+                }
+                @media (max-width: 991px) and (min-width: 769px) {
+                    .tables {
+                        zoom: 75%;
+                        margin-top: 70px;
+                    }
+                }
+                @media (max-width: 768px) and (min-width: 513px) {
+                    .tables {
+                        zoom: 50%;
+                        margin-top: 95px;
+                    }
+                }
+                @media (max-width: 512px) {
+                    .tables {
+                        zoom: 30%;
+                        margin-top: 155px;
+                    }
+                }
+            }
+            .top-panel {
+                min-height: 52px;
+                display: flex;
+                flex-direction: row;
+                .floor-buttons {
+                    position: relative;
+                    margin: 6px 4px auto 4px;
+                    border-radius: 0;
+                    background-color: rgba($brand-secondary, .1);
+                    font-size: var(--pos-font-size);
+                    border: 0;
+                    border-right: 1px solid $border;
+                    border-bottom: 1px solid $border;
+                    color: $Label;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4px 15px;
+                    height: 41px;
+                    margin-left: auto;
+                }
+                .current-floor {
+                    display: flex;
+                    width: auto;
+                    flex: 1;
+                    font-size: var(--pos-font-size);
+                    padding-left: 54px;
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                    & > h1 {
+                        margin: 0;
+                        width: 100%;
+                        font-size: var(--pos-font-size);
+                    }
+                }
+            }
+            .floor-selector {
+                display: none;
+                padding: 4px;
+                position: absolute;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                flex-direction: column;
+                top: 52px;
+                z-index: 111;
+                margin: auto;
+                border: 1px solid $border;
+                background-color: $white;
+                overflow: auto;
+                &.show {
+                    display: block;
+                }
+                .button {
+                    border: 0;
+                    background-color: rgba($brand-secondary, .1);
+                    border-right: 1px solid $border;
+                    border-bottom: 1px solid $border;
+                    width: calc(50% - 8px);
+                    max-height: initial;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    height: auto;
+                    float: left;
+                    margin: 6px 4px auto 0;
+                    &.active {
+                        background-color: $brand-secondary;
+                    }
+                    &:not(:last-child) {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

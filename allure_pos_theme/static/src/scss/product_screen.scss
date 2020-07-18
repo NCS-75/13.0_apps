@@ -1,0 +1,811 @@
+@mixin product-screen(){
+    .product-screen {
+        .leftpane {
+            right: 0;
+            left: auto;
+            border-right: 0;
+            width: 425px;
+            .pads {
+                border-top: 0;
+                background-color: $white;
+            }
+            .window {
+                overflow: visible;
+                .subwindow{
+                    &.collapsed {
+                        .subwindow-container {
+                            position: initial;
+                            .subwindow-container-fix {
+                                position: initial;
+                                display: flex;
+                                flex-direction: column-reverse;
+                                &.pads {
+                                    .actionpad {
+                                        margin: 0;
+                                        display: flex;
+                                        width: 100%;
+                                        border-radius: 0;
+                                        border: 0;
+                                        .button {
+                                            padding: 4px 10px;
+                                            height: 54px;
+                                            padding: 0;
+                                            width: 100%;
+                                            margin: 4px 4px 4px 5px;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            border-radius: 0;
+                                            border-color: $border;
+                                            background-color: rgba($brand-secondary, .1);
+                                            &:active{
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                            }
+                                            i.fa {
+                                                position: relative;
+                                                top: auto;
+                                                left: auto;
+                                                margin-right: 5px;
+                                                color: $brand-secondary;
+                                            }
+                                            &.pay {
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                                .pay-circle {
+                                                    margin-right: 5px !important;
+                                                    background-color: rgba(255, 255, 255, 0.5);
+                                                    position: relative !important;
+                                                    left: auto !important;
+                                                    .fa-chevron-right {
+                                                        margin-right: 0;
+                                                        color: $white;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .button.pay {
+                                            .pay-circle {
+                                                font-size: var(--pos-font-size);
+                                                display: flex;
+                                                width: 30px;
+                                                height: 30px;
+                                                padding: 0;
+                                                border-radius: 16px;
+                                                justify-content: center;
+                                                align-items: center;
+                                                margin: 0;
+                                                position: absolute;
+                                                left: 12px;
+                                                text-align: center;
+                                                .fa {
+                                                    top: 1px;
+                                                    left: 1px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .numpad {
+                                        margin: 0;
+                                        width: 100%;
+                                        border-radius: 0;
+                                        border-top: 0;
+                                        padding-left: 5px;
+                                        width: auto;
+                                        .input-button , .mode-button {
+                                            width: calc(25% - 4px);
+                                            margin: 6px 4px auto 0;
+                                            border-color: $border;
+                                        }
+                                        button {
+                                            background-color: rgba($brand-secondary, .1);
+                                            border-radius: 0;
+                                            color: $Label;
+                                            &.selected-mode {
+                                                color: $white;
+                                                background-color: $brand-secondary;
+                                            }
+                                            &:active{
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                                img {
+                                                    filter: invert(100%);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .order-container {
+                        .order {
+                            font-size: var(--pos-font-size);
+                            .orderlines {
+                                .orderline.selected {
+                                    background-color: rgba($brand-secondary, .1);
+                                    &:active{
+                                        background-color: $brand-secondary;
+                                        color: $white;
+                                        .info-list {
+                                            .info {
+                                                color: $white;
+                                                em {
+                                                    color: $white;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .summary {
+                                position: sticky;
+                                bottom: 0;
+                                background-color: $white;
+                            }
+                        }
+                    }
+                    .subwindow-container {
+                        .renderButtons {
+                            display: flex;
+                            height: 100%;
+                            flex-direction: column;
+                            background-color: $white;
+                            flex-wrap: wrap;
+                            .control-button {
+                                border: 0;
+                                border-right: 1px solid $border;
+                                border-bottom: 1px solid $border;
+                                display: flex;
+                                line-height: normal;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 0;
+                                font-size: var(--pos-font-size);
+                                padding: 0;
+                                flex: 1 1 40%;
+                                width: auto;
+                                min-height: 60px;
+                                height: 100px;
+                                min-width: auto;
+                                margin: 5px;
+                                background-color: rgba($brand-secondary, .1);
+                                &:active{
+                                    background-color: $brand-secondary;
+                                    color: $white;
+                                }
+                                .fa {
+                                    margin-right: 4px;
+                                    display: block;
+                                    width: 100%;
+                                    font-size: 25px;
+                                    margin-bottom: 5px;
+                                }
+                                .control-button-number {
+                                    margin-left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .rightpane {
+            left: 0;
+            right: 425px;
+            border-right: 1px solid $border;
+            .layout-table {
+                .content-row {
+                    background-color: $white;
+                    .content-cell {
+                        .content-container {
+                            .product-list-container {
+                                .product-list-scroller {
+                                    .product-list {
+                                        padding: 0;
+                                        .product {
+                                            outline: none;
+                                            width: 17%;
+                                            margin: 10px !important;
+                                            border: 0px solid $border;
+                                            border-bottom: 0px solid $brand-secondary;
+                                            border-radius: 0;
+                                            min-height: 115px;
+                                            padding: 4px 0;
+                                            height: auto;
+                                            .price-tag {
+                                                background-color: $brand-secondary;
+                                                top: 0;
+                                                right: 0;
+                                                border-radius: 0;
+                                            }
+                                            .product-name {
+                                                text-align: center;
+                                            }
+                                            .product-img {
+                                                width: 100%;
+                                            }
+                                            &.selected {
+                                                .product-qty {
+                                                    position: absolute;
+                                                    top: 0;
+                                                    right: 0;
+                                                    line-height: initial;
+                                                    padding: 5px;
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    background-color: $brand-secondary;
+                                                    color: $white;
+                                                    border-radius: 50%;
+                                                    text-align: center;
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .order-container {
+                                .order-scroller {
+                                    .order {
+                                        max-width: 100%;
+                                        .summary {
+                                            position: sticky;
+                                            bottom: 0;
+                                            background-color: $white;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                tbody {
+                    .header-row {
+                        .header-cell {
+                            .rightpane-header {
+                                background-color: $white;
+                                border-color: $border;
+                                text-align: left;
+                                display: flex;
+                                height: 52px;
+                                .breadcrumbs {
+                                    margin-left: 54px;
+                                    margin-top: 6px;
+                                    height: 40px;
+                                    display: flex;
+                                    .breadcrumb {
+                                        height: 40px;
+                                        position: relative;
+                                        background-color: rgba($brand-secondary, .1);
+                                        border-bottom: 1px solid $border;
+                                        color: $Label;
+                                        &:not(.oe_more_btn):last-child {
+                                            border-right-color: $border;
+                                            background-color: $brand-secondary;
+                                            i.fa , .breadcrumb-button{
+                                                color: $white;
+                                            }
+                                        }
+                                        &.oe_more_btn {
+                                            border-bottom: 1px solid $border;
+                                            background-color: rgba($brand-secondary, .1);
+                                            position: relative;
+                                            i.fa , .breadcrumb-button{
+                                                color: $Label;
+                                            }
+                                            .dropdown-menu {
+                                                display: none;
+                                                position: absolute;
+                                                right: 0;
+                                                flex-direction: column;
+                                                padding: 5px;
+                                                border: 1px solid $border;
+                                                top: 100%;
+                                                margin-top: 8px;
+                                                z-index: 1;
+                                                background-color: $white;
+                                                .breadcrumb {
+                                                    width: 100%;
+                                                    margin-bottom: 5px;
+                                                    margin-left: 0;
+                                                    padding: 0px;
+                                                    text-align: center;
+                                                    float: none;
+                                                    .breadcrumb-button {
+                                                        padding: 2px 10px;
+                                                    }
+                                                    &:after, &:before {
+                                                        display: none;
+                                                    }
+                                                }
+                                                &.show {
+                                                    display: flex;
+                                                }
+                                                & > .breadcrumb:last-child {
+                                                    margin-bottom: 0;
+                                                }
+                                            }
+                                        }
+                                        &:active{
+                                            background-color: $brand-secondary;
+                                            color: $white;
+                                            .fa-home {
+                                                color: $white;
+                                            }
+                                        }
+                                        .breadcrumb-arrow {
+                                            display: none;
+                                        }
+                                        & + .breadcrumb {
+                                            margin-left: 5px;
+                                            flex: 1;
+                                            position: relative;
+                                            .breadcrumb-button {
+                                                padding-left: 16px;
+                                                text-align: center;
+                                                display: block;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                white-space: nowrap;
+                                            }
+                                            &:before {
+                                                content: '';
+                                                border-left: 8px solid $white;
+                                                border-right: 8px solid transparent;
+                                                border-bottom: 20px solid transparent;
+                                                border-top: 20px solid transparent;
+                                                position: absolute;
+                                            }
+                                        }
+                                        &:not(:last-child){
+                                            &:after {
+                                                content: '';
+                                                right: -15px;
+                                                border-right: 8px solid transparent;
+                                                border-left: 7px solid rgba($brand-secondary, .1);
+                                                border-bottom: 21px solid transparent;
+                                                border-top: 20px solid transparent;
+                                                position: absolute;
+                                                z-index: 1;
+                                                top: 0;
+                                            }
+                                        }
+                                    }
+                                    .breadcrumb-home, .breadcrumb-button {
+                                        line-height: 40px;
+                                        &:active {
+                                            background-color: $brand-secondary;
+                                            .fa-home {
+                                                color: $white;
+                                            }
+                                        }
+                                    }
+                                    &.oe_breadcrumb {
+                                        flex: 1;
+                                        .breadcrumb {
+                                            &:active {
+                                                &:after {
+                                                    border-left: 7px solid $brand-secondary;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .dropdown-custom {
+                                    display: inline-block;
+                                    float: right;
+                                    .dropdown-menu {
+                                        display: none;
+                                        .btn.btn-primary {
+                                            width: calc(50% - 4px);
+                                            max-height: initial;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            flex-direction: column;
+                                            height: auto;
+                                            float: left;
+                                            margin: 6px 4px auto 0;
+                                            & > .fa {
+                                                font-size: 56px;
+                                                padding: 16px;
+                                            }
+                                            &.active {
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                                &:active {
+                                                    color: $white;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    &.show {
+                                        .dropdown-menu {
+                                            position: absolute;
+                                            display: block;
+                                            z-index: 111;
+                                            background-color: $white;
+                                            border: 1px solid $border;
+                                            top: 52px;
+                                            left: 0;
+                                            right: 0;
+                                            float: left;
+                                            margin: 0;
+                                            bottom: 0;
+                                            padding-left: 4px;
+                                        }
+                                    }
+                                }
+                                .searchbox {
+                                    flex: 1;
+                                    display: flex !important;
+                                    input {
+                                        width: 100% !important;
+                                    }
+                                }
+                                .btn-primary {
+                                    padding: 4px 15px;
+                                    height: 41px;
+                                    border-radius: 0;
+                                    font-size: var(--pos-font-size);
+                                    margin: 6px 4px auto 0;
+                                    float: right;
+                                    border-left: 0;
+                                    border-top: 0;
+                                    background-color: rgba($brand-secondary, .1);
+                                    &:active{
+                                        background-color: $brand-secondary;
+                                        color: $white;
+                                    }
+                                }
+                                @include pos-search-box();
+                                .oe_kanban {
+                                    color: $white;
+                                    background-color: $brand-secondary;
+                                    &:active{
+                                        background-color: $brand-secondary;
+                                        color: $white;
+                                    }
+                                }
+                            }
+                            .categories {
+                                display: none;
+                                border-bottom-color: $brand-secondary;
+                                .category-list-scroller {
+                                    height: auto;
+                                    width: auto;
+                                    text-align: center;
+                                    margin: auto;
+                                    max-height: unset;
+                                    .category-list {
+                                        background-color: transparent;
+                                        padding: 0;
+                                        padding-left: 5px;
+                                        border-bottom: 0;
+                                        display: flex;
+                                        flex-direction: row;
+                                        flex-wrap: wrap;
+                                        margin: auto;
+                                        text-align: center;
+                                        .category-button {
+                                            margin: 6px 4px auto 0 !important;
+                                            background-color: rgba($brand-secondary, .1);
+                                            border: 1px solid $border;
+                                            border-left: 0;
+                                            border-top: 0;
+                                            box-shadow: none;
+                                            border-radius: 0;
+                                            width: calc(20% - 5px);
+                                            display: flex;
+                                            flex-direction: column;
+                                            justify-content: center;
+                                            align-items: center;
+                                            .category-img {
+                                                width: 100%;
+                                                height: 100%;
+                                                flex: 1 1 auto;
+                                                display: inline-flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                padding: 5px;
+                                                img {
+                                                    max-height: 100%;
+                                                    max-width: 100%;
+                                                    width: auto;
+                                                    height: auto;
+                                                }
+                                            }
+                                            .category-name {
+                                                position: relative;
+                                                text-overflow: ellipsis;
+                                                text-align: center;
+                                                overflow: hidden;
+                                                line-height: unset;
+                                                margin-bottom: 5px;
+                                                padding: 5px;
+                                                white-space: nowrap;
+                                                color: $Label;
+                                                font-size: var(--pos-font-size);
+                                            }
+                                            &:active{
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                                .category-name {
+                                                    color: $white;
+                                                }
+                                            }
+                                        }
+                                        .category-simple-button {
+                                            background-color: rgba($brand-secondary, .1);
+                                            border: 1px solid $border;
+                                            border-left: 0;
+                                            border-top: 0;
+                                            margin: 6px 4px auto 0;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            padding: 5px;
+                                            width: calc(33.33% - 15px);
+                                            flex: none;
+                                            &:active{
+                                                background-color: $brand-secondary;
+                                                color: $white;
+                                            }
+                                        }
+                                    }
+                                }
+                                &.show {
+                                    position: absolute;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background-color: $white;
+                                    top: 53px;
+                                    z-index: 10;
+                                    display: block;
+                                    overflow: auto;
+                                }
+                            }
+                            .control-buttons {
+                                display: none;
+                                &.show {
+                                    position: absolute;
+                                    top: 53px;
+                                    z-index: 11;
+                                    right: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    background-color: $white;
+                                    display: block;
+                                    margin-bottom: 0;
+                                    padding: 0;
+                                    padding-left: 5px;
+                                }
+                                .control-button {
+                                    border: 0;
+                                    border-right: 1px solid $border;
+                                    border-bottom: 1px solid $border;
+                                    display: flex;
+                                    line-height: normal;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    border-radius: 0;
+                                    font-size: var(--pos-font-size);
+                                    padding: 0;
+                                    width: calc(20% - 5px);
+                                    margin: 6px 4px auto 0;
+                                    float: left;
+                                    min-height: 60px;
+                                    height: 100px;
+                                    min-width: auto;
+                                    background-color: rgba($brand-secondary, .1);
+                                    &:active{
+                                        background-color: $brand-secondary;
+                                        color: $white;
+                                    }
+                                    .fa {
+                                        margin-right: 4px;
+                                        display: block;
+                                        width: 100%;
+                                        font-size: 25px;
+                                        margin-bottom: 5px;
+                                    }
+                                    .control-button-number {
+                                        margin-left: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.oe_list {
+                    tbody {
+                        .content-row {
+                            .content-cell .content-container .product-list-container {
+                                .product-list {
+                                    display: table;
+                                    width: 100%;
+                                    article.product {
+                                        height: auto;
+                                        display: table-row;
+                                        width: auto;
+                                        line-height: normal;
+                                        border-bottom: 1px;
+                                        font-size: var(--pos-font-size);
+                                        font-weight: bold;
+                                        border: 0;
+                                        border-bottom: 0;
+                                        border-top: 1px solid $border;
+                                        vertical-align: middle;
+                                        background-color: transparent;
+                                        &.selected {
+                                            background-color: rgba($brand-secondary,.1);
+                                            .product-qty {
+                                                position: relative;
+                                                top: 5px;
+                                                right: 5px;
+                                            }
+                                        }
+                                        .product-img {
+                                            min-width: 260px;
+                                            height: auto;
+                                            padding-left: 15px;
+                                            width: auto;
+                                            background-color: transparent;
+                                            img {
+                                                max-width: 78px;
+                                                min-width: 78px;
+                                                vertical-align: middle;
+                                                padding-top: 2px;
+                                                padding-bottom: 2px;
+                                            }
+                                            .price-tag {
+                                                position: relative;
+                                                margin-left: 38px;
+                                                display: inline-block;
+                                                vertical-align: middle;
+                                            }
+                                        }
+                                        .product-name {
+                                            text-align: left;
+                                            background: transparent;
+                                        }
+                                        & > * {
+                                            vertical-align: middle;
+                                            display: table-cell;
+                                            position: relative;
+                                            text-align: left;
+                                            line-height: normal;
+                                        }
+                                        &:hover, &:focus-within {
+                                            box-shadow: 0px 2px 3px $tr-hover-shadow, inset 0px 1.5px 0px 0px $tr-hover-shadow;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &:not(.oe_barcode):not(.oe_list) {
+                    tbody {
+                        .content-row {
+                            .content-cell {
+                                .content-container {
+                                    .product-list-container {
+                                        .product-list-scroller {
+                                            .product-list {
+                                                .product {
+                                                    .price-tag {
+                                                        position: relative;
+                                                        width: auto;
+                                                        left: auto;
+                                                        right: auto;
+                                                        top: auto;
+                                                        bottom: auto;
+                                                        margin: auto;
+                                                        height: auto;
+                                                        padding: 3px 9px;
+                                                        border-radius: 12px;
+                                                        display: inline-block;
+                                                    }
+                                                    .product-name {
+                                                        height: auto;
+                                                        position: relative;
+                                                        text-align: center;
+                                                        padding: 0;
+                                                        font-weight: 420;
+                                                        display: block;
+                                                        line-height: normal;
+                                                        margin: 0;
+                                                        padding: 0;
+                                                        font-size: var(--pos-font-size);
+                                                    }
+                                                    .product-img {
+                                                        width: 100%;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        img {
+                                                            max-width: 100% !important;
+                                                            max-height: 80px;
+                                                            margin: auto;
+                                                            max-width: initial;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /*&.oe_hidden {
+            .rightpane {
+                display: none;
+            }
+            .leftpane {
+                border-right: 0;
+                .window {
+                    .subwindow {
+                        .subwindow-container {
+                            .subwindow-container-fix {
+                                .actionpad {
+                                    display: none !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+        &:not(.oe_hidden) {
+            .rightpane {
+                .oe_barcode {
+                    .header-row {
+                        .header-cell {
+                            .rightpane-header {
+                                .breadcrumbs, .oe-category ,.oe-filter {
+                                    display: none;
+                                }
+                                .searchbox {
+                                    margin-left: 54px;
+                                    margin-right: 8px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .leftpane {
+                &.oe_barcode {
+                    .window {
+                        .subwindow {
+                            .subwindow-container {
+                                .renderButtons {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    overflow: auto;
+                                    width: 100%;
+                                    flex-wrap: nowrap;
+                                    .control-button {
+                                        flex: 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

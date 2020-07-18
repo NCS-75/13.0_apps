@@ -1,0 +1,50 @@
+@mixin slide-animation() {
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+@mixin border-animation() {
+    background: repeating-linear-gradient(to right, $brand-primary 0%, $brand-primary 100%) left bottom transparent no-repeat;
+    background-size: 100% 1px;
+    background-position: center bottom;
+    -webkit-animation: line-animate .5s 1;
+    -moz-animation: line-animate .5s 1;
+    animation: line-animate .5s 1;
+}
+
+@mixin fa-fa-font($size) {
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: $size;
+}
+
+@-webkit-keyframes line-animate {
+    0% {
+        background-size: 0 1px;
+    }
+    100% {
+        background-size: 100% 1px;
+    }
+}
+
+@-moz-keyframes line-animate {
+    0% {
+        background-size: 0 1px;
+    }
+    100% {
+        background-size: 100% 1px;
+    }
+}
+
+@keyframes line-animate {
+    0% {
+        background-size: 0 1px;
+    }
+    100% {
+        background-size: 100% 1px;
+    }
+}

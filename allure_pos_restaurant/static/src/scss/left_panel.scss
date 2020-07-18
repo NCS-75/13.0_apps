@@ -1,0 +1,58 @@
+@mixin floor-top-header() {
+    .pos-rightheader {
+        #floor_toggle {
+            text-align: center;
+            padding: 10px;
+            color: $white;
+            &.oe_invisible {
+                opacity: 0.5;
+                visibility: visible !important;
+            }
+            img {
+                width: auto;
+                height: 18px;
+            }
+            & + #session_toggle {
+                padding: 6px 0;
+                img {
+                    display: none;
+                }
+                .fa {
+                    display: block !important;
+                    color: $white;
+                    font-size: 18px;
+                }
+            }
+        }
+        .session-panel {
+            flex-direction: column-reverse;
+            .active-session {
+                flex: 0;
+                flex-direction: column-reverse;
+                color: $white;
+                .order-button {
+                    display: table;
+                    margin: 0 auto;
+                    padding: 3px 0px;
+                }
+            }
+            .CurrentFloor {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                display: table;
+                margin: auto;
+                text-align: center;
+                flex: 1;
+                color: $white;
+                transform: rotate(180deg);
+            }
+        }
+        .order-selector {
+            .orders {
+                .floor-button {
+                    display: none;
+                }
+            }
+        }
+    }
+}

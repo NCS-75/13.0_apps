@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SystrayMenuWidget">
+        <t t-set="user" t-value="widget.get_user()"/>
+        <a role="button" class="user_menu" data-toggle="collapse" data-target="#systray-item">
+            <img class="rounded-circle" t-attf-src="/web/image/res.users/#{user}/image_128/40x40" alt=""/>
+        </a>
+    </t>
+
+    <t t-name="ProfileIcon">
+        <t t-set="user" t-value="widget.get_user()"/>
+        <div class="user">
+            <img class="rounded-circle" t-attf-src="/web/image/res.users/#{user}/image_1920" alt=""/>
+        </div>
+    </t>
+
+    <t t-extend="UsernameWidget">
+        <t t-jquery=".username" t-operation="prepend">
+            <i class="fa fa-user"/>
+        </t>
+    </t>
+
+     <t t-extend="HeaderButtonWidget">
+        <t t-jquery=".header-button" t-operation="append">
+            <t t-if="widget.icon">
+                <span class="title">Lock </span>
+            </t>
+        </t>
+        <t t-jquery=".header-button" t-operation="prepend">
+            <t t-if="!widget.icon">
+                <i class="fa fa-sign-out"/>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="Chrome">
+        <t t-jquery=".pos-topheader" t-operation="replace">
+            <div class="pos-topheader">
+                <div class="pos-systray o_toggle_menu">
+                    <div class="systray-item oe_hidden" id="systray-item">
+                        <span class="profile-imagewidget"></span>
+                        <span class="placeholder-UsernameWidget"></span>
+                    </div>
+                </div>
+                <div class="pos-rightheader">
+                    <span class="placeholder-OrderSelectorWidget"></span>
+                    <!-- here goes header buttons -->
+                </div>
+                <div class="panel_toggal">
+                    <i class="fa fa-bars"/>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ProductScreenWidget">
+        <t t-jquery=".control-buttons" t-operation="replace"/>
+        <t t-jquery=".header-cell" t-operation="append">
+            <div class="control-buttons oe_hidden"></div>
+        </t>
+        <t t-jquery=".content-container" t-operation="prepend">
+            <div class="panel-MobileSectionPanel"/>
+        </t>
+    </t>
+
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery=".searchbox" t-operation="after">
+            <t t-if="!widget.pos.isMobile">
+                <button class="btn btn-primary oe-category" type="button">
+                    <i class="fa fa-list-alt"/>
+                </button>
+            </t>
+            <t t-else="">
+                <t t-if="widget.breadcrumb.length > 1">
+                    <button class="btn btn-primary oe-has-back">
+                        <t t-set="category" t-value="widget.breadcrumb[widget.breadcrumb.length -2]"/>
+                        <span class="breadcrumb-button js-category-switch" t-att-data-category-id="category.id">
+                            <i class="fa fa-angle-left"/>
+                        </span>
+                    </button>
+                </t>
+                <button class="btn btn-primary oe-category oe-category-mobile">
+                    <t t-if="!widget.breadcrumb.length > 0">
+                        ALL Category
+                    </t>
+                    <t t-else="">
+                        <t t-set="category" t-value="widget.breadcrumb[widget.breadcrumb.length -1]"/>
+                        <t t-esc="category.name"/>
+                    </t>
+                </button>
+            </t>
+            <button class="btn btn-primary oe-search oe_hidden" type="button">
+                <i class="fa fa-search"/>
+            </button>
+            <t t-if="widget.pos.config.other_buttons_menu != 0">
+                <button class="btn btn-primary oe-filter" type="button">
+                    <i class="fa fa-filter"/>
+                </button>
+            </t>
+            <button class="btn btn-primary oe-back-btn oe_hidden" type="button">
+                <i class="fa fa-chevron-left"/>
+            </button>
+            <button class="btn btn-primary oe-user" type="button">
+                <!-- <i class="fa fa-user"/> -->
+                <t t-if="widget.pos.get_client()">
+                    <i class='fa fa-user-times' role="img" aria-label="Customer" title="Customer"/>
+                </t>
+                <t t-if="!widget.pos.get_client()">
+                     <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                </t>
+            </button>
+            <div class="dropdown-custom">
+                <button class="btn btn-primary dropdown-toggle dropdownMenuButton" t-attf-data-view="#{widget.pos.config.default_view}" type="button">
+                    <i t-attf-class="fa #{widget.pos.config.default_fa}"/>
+                  </button>
+                <div class="dropdown-menu">
+                    <button t-attf-class="btn btn-primary oe_view_btn #{widget.pos.config.default_view == 'oe_list' ? 'active' : ''}" data-view="oe_list">
+                        <i class="fa fa-list-ul"/>
+                        <span>List View</span>
+                    </button>
+                    <button t-attf-class="btn btn-primary oe_view_btn #{widget.pos.config.default_view == 'oe_barcode' ? 'active' : ''}" data-view="oe_barcode">
+                        <i class="fa fa-barcode"/>
+                        <span>Barcode View</span>
+                    </button>
+                    <button t-attf-class="btn btn-primary oe_view_btn #{widget.pos.config.default_view == 'oe_kanban' ? 'active' : ''}" data-view="oe_kanban">
+                        <i class="fa fa-th-large"/>
+                        <span>Kanban View</span>
+                    </button>
+                </div>
+            </div>
+        </t>
+        <t t-jquery='.breadcrumbs' t-operation="replace">
+            <t t-if="!widget.pos.isMobile">
+                <div t-attf-class="breadcrumbs #{widget.breadcrumb.length &lt; 1 ? '' : 'oe_breadcrumb'}">
+                    <span class="breadcrumb">
+                        <span class=" breadcrumb-button breadcrumb-home js-category-switch">
+                            <i class='fa fa-home' role="img" aria-label="Home" title="Home"></i>
+                        </span>
+                    </span>
+                    <t t-foreach="widget.breadcrumb" t-as="category">
+                        <span class="breadcrumb">
+                            <img src="/point_of_sale/static/src/img/bc-arrow-big.png" class="breadcrumb-arrow" alt="Slash"/>
+                            <span class="breadcrumb-button js-category-switch" t-att-data-category-id="category.id">
+                                <t t-esc="category.name"/>
+                            </span>
+                        </span>
+                    </t>
+                    <t t-if="widget.breadcrumbInner.length > 0">
+                        <span class="breadcrumb oe_more_btn">
+                            <div class="breadcrumb-button more-btn">
+                                <img src="/point_of_sale/static/src/img/bc-arrow-big.png" class="breadcrumb-arrow" alt="Slash"/>
+                                <span class="oe_more">
+                                    More
+                                </span>
+                            </div>
+                            <ul class="dropdown-menu breadcrumb_dropdown">
+                                <t t-foreach="widget.breadcrumbInner" t-as="innercategory">
+                                    <span class="breadcrumb">
+                                        <img src="/point_of_sale/static/src/img/bc-arrow-big.png" class="breadcrumb-arrow" alt="Slash"/>
+                                        <span class="breadcrumb-button js-category-switch" t-att-data-category-id="innercategory.id">
+                                            <t t-esc="innercategory.name"/>
+                                        </span>
+                                    </span>
+                                </t>
+                            </ul>
+                        </span>
+                    </t>
+                </div>
+            </t>
+        </t>
+        <t t-jquery='.categories' t-operation="append">
+            <t t-if="widget.subcategories.length > 0">
+                <t t-if="widget.pos.isMobile">
+                    <span class="breadcrumb">
+                        <span class=" breadcrumb-button breadcrumb-home js-category-switch">
+                            <i class='fa fa-home' role="img" aria-label="Home" title="Home"></i>
+                        </span>
+                    </span>
+                </t>
+            </t>
+        </t>
+        <t t-jquery='header' t-operation="after">
+            <t t-if="!widget.subcategories.length > 0">
+                <t t-if="widget.pos.isMobile">
+                    <div class="categories">
+                        <span class="breadcrumb">
+                            <span class=" breadcrumb-button breadcrumb-home js-category-switch">
+                                <i class='fa fa-home' role="img" aria-label="Home" title="Home"></i>
+                            </span>
+                        </span>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="OrderSelectorWidget">
+        <t t-jquery=".order-selector" t-operation="before">
+            <a id="session_toggle" class="session_toggle" title="Session">
+               <img src="/allure_pos_theme/static/src/img/menu_2.svg" class="icon"/>
+               <i class="fa fa-plus oe_hidden"/>
+            </a>
+            <div class="session-panel">
+                <t t-foreach="widget.pos.get_order_list()" t-as="order">
+                    <t t-if="order === widget.pos.get_order()">
+                        <div class="active-session">
+                            <span class="order-button select-order selected" t-att-data-uid="order.uid">
+                                <span class="order-sequence">
+                                    <t t-esc="order.sequence_number" />
+                                </span>
+                                <t t-esc="moment(order.creation_date).format('hh:mm')"/>
+                            </span>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+        <t t-jquery=".order-selector" t-operation="attributes">
+            <attribute name="class" value="order-selector oe_hidden" />
+        </t>
+        <t t-jquery=".select-order:not(.selected)" t-operation="append">
+            <t t-esc="moment(order.creation_date).format('hh:mm')"/>
+        </t>
+        <t t-jquery=".order-selector" t-operation="append">
+            <div class="pos-branding">
+                <img width="180" alt="star" class="pos-logo oe_image" t-attf-src="#{widget.getCompany()}"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".payment-numpad" t-operation="replace"/>
+        <t t-jquery=".payment-buttons" t-operation="replace"/>
+        <t t-jquery=".left-content" t-operation="append">
+            <section class='payment-numpad'>
+            </section>
+        </t>
+        <t t-jquery=".next" t-operation="before">
+            <button class="button btn btn-primary oe_filter">
+                <i class="fa fa-filter"/>
+            </button>
+            <div class='button js_set_customer btn btn-primary'>
+                <span class='js_customer_name'>
+                   <t t-if="widget.pos.get_client()">
+                       <i class='fa fa-user-times' role="img" aria-label="Customer" title="Customer"/>
+                   </t>
+                   <t t-if="!widget.pos.get_client()">
+                        <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                   </t>
+                </span>
+            </div>
+            <div class="other-buttons oe_hidden">
+                <div class='payment-buttons'>
+                    <t t-if='widget.pos.config.module_account'>
+                        <t t-if='widget.pos.get_order()'>
+                           <div t-attf-class='button js_invoice #{ widget.pos.get_order().is_to_invoice() ? "highlight" : ""} '>
+                               <i class='fa fa-file-text-o' /> Invoice
+                           </div>
+                        </t>
+                    </t>
+                    <div class='button js_email'>
+                        <i class='fa fa-inbox' /> Email
+                    </div>
+                    <t t-if='widget.pos.config.tip_product_id'>
+                        <div class='button js_tip'>
+                           <i class='fa fa-heart' /> Tip
+                        </div>
+                    </t>
+                    <t t-if='widget.pos.config.iface_cashdrawer'>
+                        <div class='button js_cashdrawer'>
+                           <i class='fa fa-archive' /> Open Cashbox
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ActionpadWidget">
+        <t t-jquery=".actionpad button:not(.pay)" t-operation="replace"/>
+    </t>
+
+
+    <t t-name="MobileSectionPanel">
+        <div class="oe_button_panel">
+            <div class="oe-left-panel">
+                <button class="btn btn-primary oe-payment-details" type="button">
+                    <div>
+                        <b>Order</b>
+                        <span>
+
+                        </span>
+                    </div>
+                    <div class="summary clearfix">
+                        <div class="line">
+                            <div class='entry total'>
+                                <span class="badge">Total: </span> <span class="value">0.00 €</span>
+                                <!-- <div class='subentry'>Taxes: <span class="value">0.00€</span></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <div t-if="widget.pos.config.other_buttons_menu != 0" class="oe-right-panel">
+                <button class="btn btn-primary oe-filter" type="button">
+                    <i class="fa fa-filter"></i>
+                </button>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="Product">
+        <t t-jquery=".product-name" t-operation="after">
+            <div class="product-qty"/>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,68 @@
+@mixin splitbill-screen() {
+    .splitbill-screen {
+        .screen-content {
+            .top-content {
+                right: 425px;
+            }
+            .left-content {
+                background-color: $white;
+                top: 53px;
+                left: 0;
+                right: 425px;
+                border-right: 0;
+                .order {
+                    margin: 0;
+                    border: 0;
+                    padding: 0;
+                    max-width: 100%;
+                    .orderlines {
+                        .orderline {
+                            border-bottom: 1px solid $border;
+                            &.selected {
+                                background-color: $brand-secondary;
+                            }
+                        }
+                    }
+                }
+            }
+            .right-content {
+                background-color: $white;
+                top: 0;
+                left: auto;
+                right: 0;
+                width: 425px;
+                display: flex;
+                flex-direction: column;
+                border-left: 1px solid $border;
+                .order-info {
+                    flex: 1 1 100%;
+                    margin-bottom: 0;
+                    border-bottom: 0;
+                    .subtotal {
+                        color: $brand-secondary;
+                    }
+                }
+                .paymentmethods {
+                    margin: 0;
+                    border-top: 1px solid $border;
+                    .button {
+                        line-height: initial;
+                    }
+                    .payment {
+                        border-radius: 0;
+                        border: 0;
+                        margin: 5px;
+                        padding: 17px;
+                        border-right: 1px solid $border;
+                        border-bottom: 1px solid $border;
+                        background-color: $brand-secondary;
+                        color: $white;
+                        .fa-chevron-right {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

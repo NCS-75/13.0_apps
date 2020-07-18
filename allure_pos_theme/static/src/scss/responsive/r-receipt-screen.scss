@@ -1,0 +1,56 @@
+@mixin r-receipt-screen() {
+    &.receipt-screen {
+        .screen-content {
+            display: flex;
+            flex-direction: column;
+            .top-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                min-height: 52px;
+                & > h1 {
+                    position: relative;
+                    font-size: var(--pos-font-size);
+                    width: auto;
+                    flex: 1;
+                    margin-left: 62px !important;
+                    margin-top: 0 !important;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+                .button.next {
+                    position: relative;
+                    height: 20px;
+                    margin: 6px 4px auto 0;
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                    font-size: 0;
+                    padding: 10px 15px;
+                    .fa {
+                        font-size: var(--pos-font-size);
+                    }
+                }
+            }
+            .centered-content {
+                position: relative;
+                bottom: 0;
+                height: auto;
+                top: 0;
+                .button {
+                    font-size: var(--pos-font-size);
+                }
+                .pos-receipt-container {
+                    .pos-receipt {
+                        width: 80%;
+                        margin: 5px auto;
+                    }
+                }
+            }
+        }
+    }
+}

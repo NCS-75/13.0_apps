@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_inherit" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@id='posbox_reference']" position="after">
+                    <h2>Pos Layout</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Choose a specific fiscal position at the order depending on the kind of customer (tax exempt, onsite vs. takeaway, etc.).">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="default_view" class="col-lg-3 o_light_label o_label_help" string="Set Default"/>
+                                <field name="default_view"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

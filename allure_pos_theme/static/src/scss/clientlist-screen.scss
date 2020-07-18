@@ -1,0 +1,247 @@
+@mixin clientlist-screen() {
+    .clientlist-screen {
+        .screen-content {
+            .top-content {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                height: 53px;
+                .button.back {
+                    margin: 5px;
+                }
+                .searchbox {
+                    right: 0;
+                    left: auto;
+                    margin: 0;
+                    position: relative;
+                    flex: 1;
+                    display: flex;
+                    input {
+                        width: 100%;
+                    }
+                    & + .searchbox {
+                        display: none;
+                    }
+                    .search-clear {
+                        right: 9px;
+                        &:before {
+                            content: "\f00d";
+                            @include fa-fa-font(20px);
+                        }
+                    }
+                    &:after {
+                        content: "\f002";
+                        top: 13px;
+                        left: 13px;
+                        position: absolute;
+                        @include fa-fa-font(20px);
+                    }
+                }
+                .new-customer {
+                    margin: 0;
+                    margin-top: 5px;
+                }
+                .button {
+                    margin: 0;
+                    margin-top: 0px;
+                    position: relative;
+                    left: auto;
+                    top: auto;
+                    right: auto;
+                    height: auto;
+                    min-height: 32px;
+                    font-size: var(--pos-font-size);
+                    display: flex;
+                    padding: 2px 11px;
+                    margin-right: 10px;
+                    border: 1px solid $border;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+            .full-content{
+                top: 53px;
+                .window {
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: center;
+                    align-items: stretch;
+                    .subwindow {
+                        .subwindow-container {
+                            .subwindow-container-fix {
+                                background-color: $white;
+                                height: 100% !important;
+                                .client-details {
+                                    border-bottom-color: transparent;
+                                    min-width: auto;
+                                    overflow: auto;
+                                    display: flex;
+                                    flex-direction: column;
+                                    padding: 0;
+                                    .client-picture {
+                                        width: 100%;
+                                        border: 0;
+                                        margin: 0;
+                                        & > img {
+                                            object-fit: cover;
+                                            position: relative;
+                                            top: auto;
+                                            right: auto;
+                                            left: auto;
+                                            bottom: auto;
+                                            border-radius: 50%;
+                                        }
+                                        input {
+                                            width: 100%;
+                                        }
+                                    }
+                                    .client-name {
+                                        text-align: center;
+                                    }
+                                    .edit-buttons {
+                                        order: -1;
+                                        position: relative;
+                                        text-align: right;
+                                        top: auto;
+                                        right: auto;
+                                    }
+                                    .client-details-box {
+                                        font-size: var(--pos-font-size);
+                                        .client-details-left, .client-details-right {
+                                            width: 100%;
+                                            .client-detail {
+                                                .label {
+                                                    text-align: left;
+                                                }
+                                                input, select {
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    input.client-name {
+                                        width: auto;
+                                        margin: 18px 0;
+                                    }
+                                    &:not(.edit) {
+                                        .client-details-box {
+                                            .client-details-left , .client-details-right {
+                                                .client-detail {
+                                                    display: flex;
+                                                    margin-bottom: 5px;
+                                                    span.detail {
+                                                        flex: 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            &.collapsed {
+                                height: 100%;
+                                overflow: auto;
+                            }
+                        }
+                        &:not(.collapsed) {
+                            width: auto;
+                            flex: 1 1 100%;
+                        }
+                        &.collapsed {
+                            width: auto;
+                            flex: 1;
+                            background-color: $white;
+                            border-bottom: solid 5px $brand-secondary;
+
+                        }
+                    }
+                    table.client-list {
+                        border-bottom: none;
+                        margin-bottom: 0;
+                        font-size: var(--pos-font-size);
+                        thead {
+                            background: $white;
+                            color: $Label-value;
+                            border-bottom: none;
+                            & > tr {
+                                background-color: rgba($button-box, .03);
+                                & > th {
+                                    border: 0;
+                                    text-transform: uppercase;
+                                    vertical-align: middle;
+                                    height: 40px;
+                                }
+                            }
+                        }
+                        tbody {
+                            & > tr:nth-of-type(even), & > tr:nth-of-type(odd) {
+                                background-color: transparent;
+                            }
+                            & > tr {
+                                height: 40px;
+                                & > td {
+                                    border-top: 1px solid $border;
+                                    vertical-align: middle;
+                                    font-size: var(--pos-font-size);
+                                    font-weight: $font-weight-4;
+                                }
+                                &:hover, &:focus-within {
+                                    background: transparent;
+                                    box-shadow: 0px 2px 3px $tr-hover-shadow, inset 0px 1.5px 0px 0px $tr-hover-shadow;
+                                }
+                                &:last-child{
+                                    &:hover, &:focus-within {
+                                        background: transparent;
+                                        box-shadow: 0px 0px 0px $tr-hover-shadow, inset 0px 1.5px 0px 0px $tr-hover-shadow;
+                                    }
+                                }
+                                &.highlight {
+                                    background-color: $brand-secondary !important;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            &.selected_client {
+                position: relative;
+                .top-content {
+                    margin-right: 425px;
+                    position: relative;
+                    z-index: 1;
+                }
+                .full-content {
+                    position: initial;
+                    top: 0;
+                    .subwindow {
+                        &.collapsed {
+                            position: absolute;
+                            width: 424px;
+                            right: 0;
+                            top: 0;
+                            left: auto;
+                            height: auto;
+                            bottom: 0;
+                            overflow: auto;
+                            display: block;
+                            border: 0;
+                            border-left: 1px solid $border;
+                            .subwindow-container {
+                                padding: 10px;
+                                overflow: initial;
+                                height: auto;
+                            }
+                        }
+                        &:not(.collapsed) {
+                            position: absolute;
+                            left: 0;
+                            right: 425px;
+                            top: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

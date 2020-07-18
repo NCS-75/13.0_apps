@@ -1,0 +1,1 @@
+# allure_pos_theme

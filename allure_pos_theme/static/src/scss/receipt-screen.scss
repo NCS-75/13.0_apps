@@ -1,0 +1,43 @@
+@mixin  receipt-screen() {
+    .receipt-screen {
+        .screen-content {
+            .centered-content {
+                top: 53px;
+                background-color: $white;
+                width: 100%;
+                position: relative;
+                height: 100%;
+                left: 0;
+                border: 0;
+                .weight.js-weight {
+                    background-color: $border;
+                }
+                .computed-price {
+                    background-color: $border;
+                }
+                .button {
+                    background-color: $brand-secondary;
+                    border-radius: 0;
+                    border: 1px solid $border;
+                    border-left: 0;
+                    border-top: 0;
+                    color: $white;
+                    margin: 4px 4px auto 4px;
+                }
+                .pos-receipt-container {
+                    .pos-receipt {
+                        border-radius: 0;
+                    }
+                }
+            }
+        }
+    }
+    &.oe_receipt {
+        .product-screen {
+            .leftpane {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+    }
+}

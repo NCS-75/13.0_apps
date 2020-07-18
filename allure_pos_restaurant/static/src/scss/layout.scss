@@ -1,0 +1,25 @@
+// body View -start
+body {
+    .o_action_manager {
+        .pos {
+            .pos-topheader {
+                @include floor-top-header();
+            }
+            .pos-content {
+                .window {
+                    .subwindow {
+                        .subwindow-container {
+                            .subwindow-container-fix {
+                                @include floor-scrren();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.oe_full_view {
+            .pos {
+            }
+        }
+    }
+}

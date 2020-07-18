@@ -1,0 +1,65 @@
+@mixin r-splitbill-screen() {
+    &.splitbill-screen {
+        .screen-content {
+            display: flex;
+            flex-direction: column;
+            .top-content {
+                position: relative;
+                display: flex;
+                right: 0;
+                .button {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                h1 {
+                    position: relative;
+                    left: auto;
+                    font-size: var(--pos-font-size);
+                    right: auto;
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0;
+                }
+            }
+            .left-content {
+                left: 0;
+                right: 0;
+                position: relative;
+                border: 0;
+                flex: 1;
+                top: 0;
+                margin-top: 70px;
+                overflow: auto !important;
+                .order {
+                    width: 100%;
+                    max-width: 100%;
+                    border-right: 0;
+                }
+            }
+            .right-content {
+                left: 0;
+                right: 0;
+                position: initial;
+                top: auto;
+                width: auto;
+                .paymentmethods {
+                    .button {
+                        line-height: normal;
+                    }
+                }
+                .order-info {
+                    position: absolute;
+                    top: 50px;
+                    left: 0;
+                    right: 0;
+                    font-size: 35px;
+                    padding: 10px 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,148 @@
+@-webkit-keyframes bounceInDown {
+    0% {
+       top: 0;
+    }
+    50% {
+        top: 140px;
+    }
+    100% {
+       top: 0;
+    }
+ }
+
+ @keyframes bounceInDown {
+    0% {
+       top: 0;
+    }
+    50% {
+        top: 140px;
+    }
+    100% {
+       top: 0;
+    }
+ }
+
+@mixin login-overlay() {
+    .login-overlay {
+        background: radial-gradient(circle, darken($brand-secondary, 20%), $black);
+        .screen-login {
+            background-color: $white;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            left: 5px;
+            right: 5px;
+            width: auto;
+            bottom: 5px;
+            top: 5px;
+            max-width: 550px;
+            height: auto;
+            max-height: 450px;
+            .login-title {
+                height: auto;
+                line-height: 68px;
+                small {
+                    font-size: 22px;
+                }
+            }
+            .login-body {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                flex: 1;
+                position: relative;
+                padding: 15px 15px 0 15px;
+                .login-element {
+                    width: 100%;
+                    height: auto;
+                    &:first-child {
+                        flex: 1;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        display: table;
+                        width: auto;
+                        height: auto;
+                        margin-top: auto;
+                        position: relative;
+                        .login-barcode-img {
+                            width: 212px;
+                            height: auto;
+                        }
+                        .login-barcode-text {
+                            margin-top: 25px;
+                        }
+                        /*&:before {
+                            content: '';
+                            position: absolute;
+                            height: 2px;
+                            top: 0;
+                            left: -20px;
+                            right: -20px;
+                            animation: bounceInDown 2.5s infinite;
+                            -webkit-animation: bounceInDown 2.5s infinite;
+                            background-color: $text-danger;
+                            opacity: 0.8;
+                            box-shadow: 1px 1px 2px 0px $text-danger;
+                        }*/
+                    }
+                    &:last-child {
+                        margin-top: auto;
+                    }
+                    .login-button {
+                        width: 100%;
+                        padding: 12px;
+                        border-radius: 0;
+                        font-size: var(--pos-font-size);
+                        border-left: 0;
+                        border-top: 0;
+                        background-color: rgba($brand-secondary, .1);
+                        &:active{
+                            background-color: $brand-secondary;
+                            color: $white;
+                        }
+                    }
+                }
+                .login-or {
+                    display: none;
+                }
+            }
+            .login-footer {
+                height: auto;
+                padding: 4px 15px 15px 15px;
+                .login-button {
+                    width: 100%;
+                    padding: 12px;
+                    border-radius: 0;
+                    background-color: $brand-danger;
+                    color: $white;
+                    font-size: var(--pos-font-size);
+                    border-left: 0;
+                    border-top: 0;
+                    &:active{
+                        background-color: darken($brand-danger, 5%);
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .login-overlay {
+            background: transparent;
+            &:before {
+                background-color: transparent;
+            }
+            .screen-login {
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+    }
+}

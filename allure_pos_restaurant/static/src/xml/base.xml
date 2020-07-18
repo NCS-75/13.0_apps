@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="OrderSelectorWidget">
+        <t t-jquery=".session_toggle" t-operation="before">
+            <t t-if="widget.pos.table">
+                <a id="floor_toggle" class="floor-button" title="Session">
+                    <img src="/allure_pos_theme/static/src/img/menu_2.svg" class="icon"/>
+                </a>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="FloorDetails">
+        <span class="CurrentFloor">
+            <t t-esc="floor.name"/>
+            ( <t t-esc="table.name" /> )
+        </span>
+    </t>
+
+    <t t-extend="FloorScreenWidget">
+        <!-- <t t-jquery=".color-picker .color.tl" t-operation="after">
+            <span class='color'  style='background:radial-gradient(circle, #d23125, #000);' role="img" aria-label="White" title="White"/>
+        </t> -->
+        <t t-jquery=".floor-selector" t-operation="before">
+            <div class="top-panel">
+                <div class="current-floor">
+                    <t t-foreach="widget.pos.floors" t-as="floor">
+                        <t t-if="floor.id === widget.floor.id">
+                            <h1><t t-esc="floor.name" /></h1>
+                        </t>
+                    </t>
+                </div>
+                <button class='floor-buttons btn-primary'>
+                    <i class="fa fa-building-o"/>
+                </button>
+            </div>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,51 @@
+// body View -start
+body {
+    font-family: roboto;
+    font-size: var(--pos-font-size);
+    font-weight: $font-weight-4;
+    color: $Label-value;
+    .o_action_manager {
+        .pos {
+            font-family: roboto;
+            font-size: var(--pos-font-size);
+            font-weight: $font-weight-4;
+            color: $Label-value;
+            .pos-topheader {
+                @include pos_header_layout();
+            }
+            .pos-content {
+                @include pos_contant_layout();
+            }
+            & > .loader {
+                background: radial-gradient(circle, darken($brand-secondary, 20%), $black);
+                .loader-feedback {
+                    .message {
+                        color: $white;
+                    }
+                    .progressbar {
+                        background: $white;
+                        .progress {
+                            background: $brand-secondary;
+                         }
+                    }
+                }
+            }
+            textarea {
+                border-radius: 0;
+            }
+        }
+        @include popup_layout();
+    }
+    &.oe_full_view {
+        .o_action_manager {
+            .pos {
+                @include pos_full_header_layout();
+            }
+        }
+    }
+    .modal {
+        .modal-dialog {
+            z-index: 9999;
+        }
+    }
+}

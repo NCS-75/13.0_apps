@@ -1,0 +1,111 @@
+@mixin r-client-screen() {
+    &.clientlist-screen {
+        .screen-content {
+            .full-content {
+                .window {
+                    .subwindow {
+                        .subwindow-container {
+                            .client-list {
+                                line-height: unset;
+                                font-size: var(--pos-font-size);
+                            }
+                        }
+                    }
+                }
+                .oe_button_panel {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    height: 52px;
+                    padding: 4px 4px 4px 5px;
+                    .oe-barcod-btn {
+                        width: 100%;
+                        height: 100%;
+                        img {
+                            height: 24px;
+                        }
+                        &.start {
+                            background-color: $brand-danger;
+                        }
+                    }
+                    & + .window{
+                        top: 60px;
+                        height: auto;
+                        bottom: 0;
+                    }
+                }
+            }
+            .top-content {
+                .searchbox {
+                    display: flex;
+                    height: 100%;
+                    & > input {
+                        text-align: left;
+                        border-radius: 0;
+                        flex: 1 1 100%;
+                        display: flex;
+                        margin: auto;
+                        width: 100%;
+                        max-width: unset;
+                        margin-right: 4px;
+                    }
+                    & + .searchbox {
+                        display: none;
+                    }
+                }
+                .button {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: var(--pos-font-size);
+                    &.highlight {
+                        display: block;
+                    }
+                    &.new-customer {
+                        order: 5;
+                        margin-left: auto;
+                    }
+                }
+            }
+            &.selected_client {
+                .top-content {
+                    margin-right: 0;
+                    flex: 1 1;
+                    .button.next.highlight {
+                        margin: 4px 2px;
+                        padding: 4px 12px;
+                        white-space: nowrap;
+                        width: auto;
+                        flex: 1 0;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        display: block;
+                    }
+                    .searchbox {
+                        display: none;
+                    }
+                }
+                .full-content {
+                    .oe_button_panel {
+                        display: none;
+                    }
+                    .window {
+                        .subwindow {
+                            &.collapsed {
+                                width: auto;
+                                left: 0;
+                                right: 0;
+                                top: 53px;
+                            }
+                            &:not(collapsed) {
+                                right: -100%;
+                                left: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

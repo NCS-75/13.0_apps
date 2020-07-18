@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="DashboardThemeColors">
+        <li class="o_mail_systray_item" t-if="widget.group_theme_config">
+            <a class="dropdown-toggle o-no-caret o_setup_theme" aria-expanded="false" title="Theme Settings" href="#">
+                <i class="fa fa-cog" aria-label="Activities"/>
+            </a>
+        </li>
+    </t>
+    <t t-name="CustomizeTheme">
+        <div class="o_cusomize_theme">
+            <div class="row">
+                <div class="col-md-12 o_left_panel color_panel" t-if="widget.group_system">
+                    <div class="text-center">
+                        <ul class="oe_theme_colorpicker" data-field="color">
+                            <t t-foreach="widget.result" t-as="rec">
+                                <li t-att-class="(rec.selected)? 'selected': ''">
+                                    <span t-att-data-id="rec.id" class="oe_theme_color">
+                                        <div href="#" class="navbar-theme" navbar-theme="themelight1">
+                                            <span class="head oe_night_color"/>
+                                            <span class="oe_left oe_night_color" t-att-style="'background-color:' + rec.leftbar_color"/>
+                                            <span class="oe_right oe_night_color" t-att-style="'background-color:' + rec.buttons_color"/>
+                                        </div>
+                                        <span class="o_theme_option">
+                                            <span class="o_view fa fa-eye"/>
+                                            <span class="o_remove fa fa-trash"/>
+                                        </span>
+                                    </span>
+                                </li>
+                            </t>
+                            <li>
+                                <span t-att-data-id="0" class="oe_theme_color o_add_theme"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 o_right_panel">
+                    <form class="o_control_form">
+                        <div t-if="widget.group_system" class="row color_panel">
+                            <div class="form-group col-md-3">
+                                <label for="leftbar">Leftbar</label>
+                                <input type="text" name="leftbar_color" class="form-control o_colorpicker" placeholder="#875A7B"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="buttons_color">Buttons</label>
+                                <input type="text" name="buttons_color" class="form-control o_colorpicker" placeholder="#00a09d"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="menu_color">Menu</label>
+                                <input type="text" name="menu_color" class="form-control o_colorpicker" placeholder="#666666"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="heading_color">Heading</label>
+                                <input type="text" name="heading_color" class="form-control o_colorpicker" placeholder="#2f3136"/>
+                            </div>
+                        </div>
+                        <div t-if="widget.group_system" class="row color_panel">
+                            <div class="form-group col-md-3">
+                                <label for="label_color">Label</label>
+                                <input type="text" name="label_color" class="form-control o_colorpicker" placeholder="#999"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="label_value_color">Label Value</label>
+                                <input type="text" name="label_value_color" class="form-control o_colorpicker" placeholder="#666666"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="link_color">Link</label>
+                                <input type="text" name="link_color" class="form-control o_colorpicker" placeholder="#00a09d"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="panel_title_color">Panel Title</label>
+                                <input type="text" name="panel_title_color" class="form-control o_colorpicker" placeholder="#2f3136"/>
+                            </div>
+                        </div>
+                        <div t-if="widget.group_system" class="row color_panel">
+                            <div class="form-group col-md-3">
+                                <label for="tooltip_color">Tooltip</label>
+                                <input type="text" name="tooltip_color" class="form-control o_colorpicker" placeholder="#875A7B"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="button_box">Button Box</label>
+                                <input type="text" name="button_box" class="form-control o_colorpicker" placeholder="#666666"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="border_color">Border</label>
+                                <input type="text" name="border_color" class="form-control o_colorpicker" placeholder="#cccccc"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

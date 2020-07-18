@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_common" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+          <!-- scss -->
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_restaurant/static/src/scss/floor_screen.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_restaurant/static/src/scss/left_panel.scss"/>
+          <link rel="stylesheet" type="text/scss"
+                href="/allure_pos_restaurant/static/src/scss/layout.scss"/>
+          <!-- js -->
+          <script src="/allure_pos_restaurant/static/src/js/crome.js"/>
+          <script src="/allure_pos_restaurant/static/src/js/floors.js"/>
+        </xpath>
+    </template>
+</odoo>

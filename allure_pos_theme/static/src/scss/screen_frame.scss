@@ -1,0 +1,155 @@
+@mixin pos-search-box(){
+    .searchbox {
+        right: 92px;
+        position: relative;
+        width: auto;
+        right: auto;
+        display: inline-block;
+        color: $Label-value;
+        .fa {
+            font-size: 20px;
+            color: $black;
+        }
+        & > input {
+            border: 0;
+            box-shadow: none;
+            background: none;
+            width: 180px;
+            text-align: left;
+            border-radius: 0;
+            &:focus {
+                @include border-animation();
+                color: $brand-secondary;
+            }
+        }
+        .search-clear {
+            z-index: 1;
+            &.right {
+                left: auto;
+                right: 0;
+            }
+        }
+    }
+}
+
+@mixin screen-frame() {
+    .screen {
+        left: 65px;
+        width: auto;
+        right: 0;
+        @include slide-animation();
+        .screen-content {
+            max-width: 100%;
+            .top-content {
+                .button {
+                    border: 0;
+                    border-radius: 0;
+                }
+                @include pos-search-box();
+            }
+            .left-content {
+                .paymentmethods-container {
+                    .button {
+                        border: 0;
+                        border-radius: 0;
+                    }
+                }
+            }
+            .right-content {
+                .payment-numpad {
+                    .button {
+                        border: 0;
+                        border-radius: 0;
+                    }
+                }
+                .payment-buttons {
+                    .button {
+                        border: 0;
+                        border-radius: 0;
+                    }
+                }
+            }
+        }
+        &:not(.product-screen):not(.floor-screen) {
+            .screen-content {
+                border: 0;
+                border-right: 1px solid $border;
+                .top-content {
+                    height: 52px;
+                    background-color: $white;
+                    border-bottom: 1px solid $border;
+                    h1 {
+                        margin: 0;
+                        margin-top: 8px;
+                    }
+                    .button {
+                        border-left: 0;
+                        border-top: 0;
+                        margin: 6px 4px 0 0;
+                        padding: 4px 15px;
+                        border-color: $border;
+                        background-color: rgba($brand-secondary, .1);
+                        border-right: 1px solid $border;
+                        border-bottom: 1px solid $border;
+                        font-size: var(--pos-font-size);
+                        &:active{
+                            background-color: $brand-secondary;
+                            color: $white;
+                        }
+                        &.back {
+                            background-color: rgba($brand-secondary, .1);
+                            border-left: 0;
+                            border-top: 0;
+                            margin: 6px 4px auto 54px;
+                            font-weight: 600;
+                            min-height: 32px;
+                            &:active{
+                                background-color: $brand-secondary;
+                                color: $white;
+                            }
+                        }
+                        &.highlight {
+                            background-color: $brand-secondary !important;
+                            border-bottom: 1px solid rgba($brand-secondary, .1) !important;
+                            border-right: 1px solid rgba($brand-secondary, .1) !important;
+                            border-left: 0 !important;
+                            border-top: 0 !important;
+                        }
+                        .fa-angle-double-left {
+                            margin-right: 5px;
+                        }
+                        .fa-angle-double-right {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        .rightpane, .leftpane {
+            .highlight {
+                background-color: $brand-secondary !important;
+                border-bottom: 1px solid rgba($brand-secondary, .1) !important;
+                border-right: 1px solid rgba($brand-secondary, .1) !important;
+                border-left: 0 !important;
+                border-top: 0 !important;
+            }
+        }
+        .client-picture {
+            border: 2px solid $border;
+        }
+        input , select{
+            border: 0;
+            border-bottom: 1px solid $border;
+            outline: none;
+            border-radius: 0;
+            &:focus{
+                @include border-animation();
+            }
+        }
+        .button.highlight , .control-button.highlight {
+            background-color: $brand-secondary !important;
+            border: 1px solid $brand-secondary !important;
+            color: $white !important;
+        }
+    }
+}

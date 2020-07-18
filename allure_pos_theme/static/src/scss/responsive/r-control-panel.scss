@@ -1,0 +1,19 @@
+@mixin control-panel() {
+    .btn-primary {
+        border-radius: 0;
+        font-size: var(--pos-font-size);
+        float: right;
+        border-left: 0;
+        border-top: 0;
+        background-color: $brand-secondary;
+        &:active{
+            color: $white;
+        }
+    }
+    .cp-panel {
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        z-index: 11;
+    }
+}

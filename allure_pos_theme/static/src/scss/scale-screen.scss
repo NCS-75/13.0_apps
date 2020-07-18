@@ -1,0 +1,24 @@
+@mixin scale-screen() {
+    .scale-screen {
+        .screen-content {
+            .centered-content {
+                top: 53px;
+                background-color: $white;
+                width: 100%;
+                position: relative;
+                height: 100%;
+                left: 0;
+                border: 0;
+                .weight.js-weight {
+                    background-color: $border;
+                }
+                .computed-price {
+                    background-color: $border;
+                }
+                .buy-product {
+                    background-color: $brand-secondary;
+                }
+            }
+        }
+    }
+}
