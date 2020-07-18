@@ -5,7 +5,7 @@
     'name': 'Global Search',
     'version': '1.2',
     'category': 'Tools',
-    'summary': 'Search any records that you have access by typing a search term',
+    'summary': 'Search any records that you have access by typing a search term.',
     'description': """
 What is Global search?
 ======================
