@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="assets_frontend" inherit_id="website.assets_frontend" name="Brand Slider">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sync_website_product_size_chart/static/src/js/pdf_viewer.js"/>
+            <script type="text/javascript" src="/sync_website_product_size_chart/static/src/js/website_sale.js"/>
+            <link rel="stylesheet" type="text/css" href="/sync_website_product_size_chart/static/src/scss/size_chart.scss"/>
+        </xpath>
+     </template>
+
+
+     <!-- Product Dimensions Assets -->
+     <template id="iframe_css_assets_edit" name="CSS assets for wysiwyg iframe content for popup">
+         <t t-call-assets="web.assets_common" t-js="false"/>
+         <t t-call-assets="web.assets_frontend" t-js="false"/>
+         <t t-call-assets="web_editor.assets_wysiwyg" t-js="false"/>
+         <t t-call-assets="website.assets_editor" t-js="false"/>
+     </template>
+</odoo>

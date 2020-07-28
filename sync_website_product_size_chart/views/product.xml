@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_dimensions" name="Show Product Dimensions" active="True" customize_show="True" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='product_option_block']" position="inside">
+            <t t-if="product.product_dimension_id">
+                <button type="button" role="button" class="btn btn-link mt16 o_product_dimensions" t-att-data-product_dimension_id="product.product_dimension_id.id">
+                    <span class="fa fa-braille" role="img" aria-label="Product Dimensions"></span> Size Chart
+                </button>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,13 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="sync_website_product_size_chart.PdfViewerIframe">
+        <div class="o_pdfviewer_container">
+            <iframe class="o_pdfviewer_iframe"/>
+        </div>
+    </t>
+
+    <t t-name="product_dimensions.edition.wrapper">
+        <div id="wrap" class="oe_structure oe_empty"/>
+    </t>
+
+</templates>

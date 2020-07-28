@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_product_dimensions_search" model="ir.ui.view">
+        <field name="name">product.dimensions.search</field>
+        <field name="model">product.dimensions</field>
+        <field name="arch" type="xml">
+            <search string="Product Dimensions">
+                <field name="name"/>
+                <group expand="1" string="Group By">
+                    <filter string="Mode" name="mode" context="{'group_by': 'mode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_product_dimensions_tree" model="ir.ui.view">
+        <field name="name">product.dimensions.tree</field>
+        <field name="model">product.dimensions</field>
+        <field name="arch" type="xml">
+            <tree string="Product Dimensions">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_dimensions_form" model="ir.ui.view">
+        <field name="name">product.dimensions.form</field>
+        <field name="model">product.dimensions</field>
+        <field name="arch" type="xml">
+            <form string="Product Dimensions">
+                <header>
+                    <button name="action_view_products" type="object" string="Products" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_products" type="object" class="oe_stat_button" icon="fa-th-list" attrs="{'invisible': [('product_tmpl_count', '=', 0)]}">
+                            <field name="product_tmpl_count" widget="statinfo" string="Products"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" class="oe_inline"/></h1>
+                    </div>
+                    <group>
+                        <field name="mode" widget="radio" options="{'horizontal': true}"/>
+                    </group>
+                    <notebook>
+                        <page id="content" string="Content">
+                            <field name="html_content" widget="html" attrs="{'invisible': [('mode', '!=', 'html')]}" options="{
+                                'snippets': 'sync_website_product_size_chart.dimensions_snippets',
+                                'cssEdit': 'sync_website_product_size_chart.iframe_css_assets_edit',
+                            }"/>
+                           <field name="pdf_file" widget="pdf_viewer" attrs="{'invisible': [('mode', '!=', 'pdf')]}"/>
+                       </page>
+                   </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_dimensions" model="ir.actions.act_window">
+        <field name="name">Product Dimensions</field>
+        <field name="res_model">product.dimensions</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="manu_product_dimensions" action="action_product_dimensions" parent="website_sale.menu_catalog" name="Product Dimensions" sequence="11"/>
+
+</odoo>

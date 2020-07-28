@@ -1,0 +1,60 @@
+@mixin size-chart() {
+	.modal.o_pdfviewer_modal, .modal.o_dimensions_modal {
+		padding-right: 0 !important;
+		.modal-dialog {
+			width: 100%;
+			max-width: 100%;
+			padding: 0;
+			.modal-content {
+				background-color: transparent;
+				.modal-header {
+					border: 0;
+					padding: 0;
+					.modal-title {
+						display: none;
+					}
+					.close {
+						position: absolute;
+						right: 45px;
+						top: 16px;
+						font-size: 43px;
+						padding: 0px 10px;
+						color: white;
+						opacity: 1;
+						z-index: 111;
+						&:hover {
+							background-color: rgba(black,0.8);
+						}
+					}
+				}
+				.s_product_dimension {
+					border: 0;
+					.container {
+						background-color: white;
+						max-width: 70%;
+					}
+				}
+			}
+		}
+	}
+	.modal.o_pdfviewer_modal {
+		.modal-content {
+			height: 100%;
+			width: 100%;
+			.o_pdfviewer_container {
+				width: 80%;
+				height: 80%;
+				margin: auto;
+				overflow: hidden;
+				.o_pdfviewer_iframe {
+					height: 100%;
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+body {
+	@include size-chart();
+}
