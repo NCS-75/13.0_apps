@@ -11,3 +11,7 @@ sudo python3 setup.py install
 Make sure you have ``oauth2client`` Python module installed::
 
 pip3 install --upgrade oauth2client
+
+=========================================
+
+For installing library in Odoo.sh check requirements.txt file
