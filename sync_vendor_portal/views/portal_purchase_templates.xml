@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_my_purchase_quote_orders" name="My Purchase Quotes">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Supplier Quotes</t>
+            </t>
+            <t t-if="not orders">
+                <div class="alert alert-warning mt8" role="alert">
+                    There is no any Purchase Quotes.
+                </div>
+            </t>
+
+            <p class="alert alert-danger mt8" t-if="request.params.get('error_msg')" role="alert">
+                <t t-esc="request.params.get('error_msg')"/>
+            </p>
+            <t t-if="orders">
+                <t t-call="portal.portal_table">
+                    <t t-foreach="grouped_purchase" t-as="orders">
+                        <thead>
+                            <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                                <th>
+                                    <t t-if="orders">
+                                        <t t-if="groupby == 'none'">Quotation #</t>
+                                        <t t-if="groupby == 'state'">
+                                            <em class="font-weight-normal text-muted">Status:</em>
+                                            <span t-field="orders[0].state"/>
+                                        </t>
+                                    </t>
+                                </th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="orders" t-as="order">
+                                <tr>
+                                    <td><a t-attf-href="/my/purchase/qoute/#{order.id}?{{ keep_query() }}"><span t-field="order.name"/></a></td>
+                                    <td><span t-field="order.date_order" t-options='{"widget": "date"}'/></td>
+                                    <td>
+                                        <t t-if="order.state == 'draft'">
+                                          <span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> RFQ</span>
+                                        </t>
+                                        <t t-if="order.state == 'to approve'">
+                                          <span class="badge badge-secondory"><i class="fa fa-fw fa-spinner"/>To Approve</span>
+                                        </t>
+                                        <t t-if="order.state == 'done'">
+                                          <span class="badge badge-success"><i class="fa fa-fw fa-check"/> Locked</span>
+                                        </t>
+                                        <t t-if="order.state == 'sent'">
+                                          <span class="badge badge-dark"><i class="fa fa-fw fa-paper-plane"/>RFQ Sent</span>
+                                        </t>
+                                        <t t-if="order.state == 'purchase'">
+                                          <span class="badge badge-primary"><i class="fa fa-fw fa-shopping-cart"/>Purchase Order</span>
+                                        </t>
+                                        <t t-if="order.state == 'cancel'">
+                                          <span class="badge badge-danger"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="order.picking_count">
+                                          <span class="badge badge-secondory"><i class="fa fa-fw fa-truck"/> <span><t t-esc="order.picking_count"/></span> Shipment</span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="order.invoice_count">
+                                          <span class="badge badge-secondory"><i class="fa fa-fw fa-pencil-square-o"/> <span><t t-esc="order.invoice_count"/></span> Vendor Bills</span>
+                                        </t>
+                                    </td>
+                                    <td><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_purchase_quote_order" name="Purchase Quotes Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_quote_sidebar">
+                <!-- Page Content -->
+                <div id="purchase_content" class="col-12 col-lg justify-content-end">
+                    <div class="o_portal_html_view shadow w-100">
+                        <form action="/my/purchase/qoute/update" role="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden"  id="order_id" name="order_id" t-att-value="quote_order.id if quote_order else None"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-lg-6 d-flex">
+                                            <h4>
+                                                <t t-if="quote_order.state in ['draft', 'cancel']">
+                                                Quotation #
+                                                </t>
+                                                <span t-esc="quote_order.name"/>
+                                            </h4>
+                                            <a t-if="quote_order.state in ['draft', 'sent']" t-attf-href="/my/purchase/qoute/confirm/#{quote_order.id}?{{ keep_query() }}" id="button_confirm" class="btn btn-info" style="margin-left: 10px;">Confirm Order</a>
+                                            <a t-if="quote_order.state not in ['cancel', 'done']" t-attf-href="/my/purchase/qoute/cancel/#{quote_order.id}?{{ keep_query() }}" id="button_cancel" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
+                                            <a t-if="quote_order.state == 'cancel'" t-attf-href="/my/purchase/qoute/draft/#{quote_order.id}?{{ keep_query() }}" id="button_draft" class="btn btn-primary" style="margin-left: 10px;">Set to draft</a>
+                                            <a t-if="quote_order.state == 'done'" t-attf-href="/my/purchase/qoute/unlock/#{quote_order.id}?{{ keep_query() }}" id="button_unlock" class="btn btn-primary" style="margin-left: 10px;">Unlock</a>
+                                            <a t-if="quote_order.state == 'purchase'" t-attf-href="/my/purchase/qoute/lock/#{quote_order.id}?{{ keep_query() }}" id="button_unlock" class="btn btn-primary" style="margin-left: 10px;">Lock</a>
+                                        </div>
+                                        <div class="col-lg-6 text-right">
+                                            <button type="submit" t-if="quote_order.state in ['draft', 'sent']" id="button_update" class="btn btn-info" style="margin-left: 10px;">Update</button>
+                                            <a target="_blank" t-if="quote_order.state in ['draft', 'sent']" t-attf-href="/my/purchase/qoute/print/#{quote_order.id}?{{ keep_query() }}" id="button_print_rfq" class="btn btn-primary" style="margin-left: 10px;">Print RFQ</a>
+                                            <t t-if="quote_order.state == 'draft'">
+                                                <span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> RFQ</span>
+                                            </t>
+                                            <t t-if="quote_order.state == 'to approve'">
+                                                <span class="badge badge-secondory"><i class="fa fa-fw fa-spinner"/>To Approve</span>
+                                            </t>
+                                            <t t-if="quote_order.state == 'done'">
+                                                <span class="badge badge-success"><i class="fa fa-fw fa-check"/> Locked</span>
+                                            </t>
+                                            <t t-if="quote_order.state == 'sent'">
+                                                <span class="badge badge-dark"><i class="fa fa-fw fa-paper-plane"/>RFQ Sent</span>
+                                            </t>
+                                            <t t-if="quote_order.state == 'purchase'">
+                                                <span class="badge badge-primary"><i class="fa fa-fw fa-shopping-cart"/>Purchase Order</span>
+                                            </t>
+                                            <t t-if="quote_order.state == 'cancel'">
+                                                <span class="badge badge-danger"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb8">
+                                        <strong>Date:</strong> <span t-field="quote_order.date_order" t-options='{"widget": "date"}'/>
+                                        <div t-if="quote_order.picking_count" class="pull-right">
+                                            <a t-attf-href="/my/shipings/#{quote_order.id}?{{ keep_query() }}" class="btn btn-secondary btn-md">
+                                                <span class="fa fa-truck"></span>
+                                                <span><t t-esc="quote_order.picking_count"/></span>
+                                                <span>Shipment</span>
+                                            </a>
+                                        </div>
+                                         <div t-if="quote_order.invoice_count" class="pull-right pr-2">
+                                            <a t-attf-href="/my/vendor/bill/#{quote_order.id}?{{ keep_query() }}" class="btn btn-secondary btn-md">
+                                                <span class="fa fa-pencil-square-o"></span>
+                                                <span><t t-esc="quote_order.invoice_count"/></span>
+                                                <span>Vendor Bills</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mb8" t-field="quote_order.partner_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <strong>Product</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-right">
+                                            <strong>Unit Price</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-right">
+                                            <strong>Quantity</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-right">
+                                            <strong>Subtotal</strong>
+                                        </div>
+                                    </div>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-foreach="quote_order.order_line" t-as="ol">
+                                        <input type="hidden" t-att-value="ol.id" t-attf-name="rec_#{ol.id}"/>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + ol.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + ol.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                        <div t-if="not ol.display_type" class="row purchases_vertical_align mt-1">
+                                            <div class="col-lg-1 text-center">
+                                                <img t-att-src="image_data_uri(resize_to_48(ol.product_id.image_128))" alt="Product"/>
+                                            </div>
+                                            <div id='product_name' class="col-lg-5">
+                                                <span t-esc="ol.name"/>
+                                            </div>
+                                            <div class="col-lg-2 text-right">
+                                                <input required="required" t-att-readonly="'readonly' if quote_order and quote_order.state not in ['draft', 'sent'] else None" type="number" min="0" step="0.01" class="form-control o_required_modifier text-right"  t-attf-name="price_unit_#{ol.id}" t-att-value="ol.price_unit if ol else ''"/>
+                                            </div>
+                                            <div class="col-lg-2 text-right">
+                                                <input required="required" t-att-readonly="'readonly' if quote_order and quote_order.state not in ['draft', 'sent'] else None" step="0.01" type="number" min="0" class="form-control o_required_modifier text-right" t-attf-name="product_qty_#{ol.id}" t-att-value="ol.product_qty if ol else ''"/>
+                                            </div>
+                                            <div class="col-lg-2 text-right">
+                                                <span t-field="ol.price_subtotal" t-options='{"widget": "monetary", "display_currency": quote_order.currency_id}'/>
+                                            </div>
+                                        </div>
+                                        <t t-if="ol.display_type == 'line_section'">
+                                            <div class="col-lg-12 bg-200">
+                                                <strong t-esc="ol.name"/>
+                                            </div>
+                                            <t t-set="current_section" t-value="ol"/>
+                                            <t t-set="current_subtotal" t-value="0"/>
+                                        </t>
+                                        <t t-elif="ol.display_type == 'line_note'">
+                                            <div class="col-lg-12 font-italic">
+                                                <span t-esc="ol.name"/>
+                                            </div>
+                                        </t>
+                                        <t t-if="current_section and (ol_last or quote_order.order_line[ol_index+1].display_type == 'line_section')">
+                                            <div class="row">
+                                                <div class="col-lg-10 text-right">Subtotal</div>
+                                                <div class="col-lg-2 text-right">
+                                                    <span t-esc="current_subtotal" t-options='{"widget": "monetary", "display_currency": quote_order.currency_id}'/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-lg-12 text-left">
+                                            <div class="row">
+                                                <div class="col-lg-10 text-right">
+                                                Untaxed Amount:
+                                                </div>
+                                                <div class="col-lg-2 text-right">
+                                                    <span t-field="quote_order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": quote_order.currency_id}'/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-10 text-right">
+                                                Taxes:
+                                                </div>
+                                                <div class="col-lg-2 text-right">
+                                                    <span t-field="quote_order.amount_tax" t-options='{"widget": "monetary", "display_currency": quote_order.currency_id}'/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-10 text-right">
+                                                    <strong>Total:</strong>
+                                                </div>
+                                                <div class="col-lg-2 text-right">
+                                                    <strong><span t-field="quote_order.amount_total" t-options='{"widget": "monetary", "display_currency": quote_order.currency_id}'/></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <textarea placeholder="Notes" required="required" t-att-readonly="'readonly' if quote_order and quote_order.state not in ['draft'] else None" class="form-control text-left" name="notes"><t t-esc="quote_order.notes if quote_order else ''"/></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mt32" t-if="quote_order.partner_id">
+                                        <div class="col-12 col-md-6 pb-2" t-if="quote_order.partner_id.user_id">
+                                            <strong>Contact</strong>
+                                            <div class="row">
+                                                <div class="col flex-grow-0 pr-3">
+                                                    <img t-if="quote_order.partner_id.user_id.image_1024" class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(quote_order.partner_id.user_id.image_1024)" alt="Contact"/>
+                                                    <img t-else="" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" alt="Contact"/>
+                                                </div>
+                                                <div class="col pl-md-0">
+                                                    <div t-field="quote_order.partner_id.user_id" t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mt32" id="purchase_communication">
+                    <h4><strong>Message and Communication History</strong></h4>
+                    <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="quote_order"/>
+                    <t t-set="pid" t-value="pid"/>
+                    <t t-set="hash" t-value="hash"/>
+                    </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

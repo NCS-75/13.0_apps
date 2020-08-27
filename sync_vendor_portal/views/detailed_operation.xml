@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_detailed_operation_form" name="Detailed Operation">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="my_modal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detailed Operation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&amp;times</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/create/detailed/operation" role="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="move" t-att-value="move.id"/>
+                            <div class="row">
+                                <div class="mb8 col-md-12">
+                                    <strong>Product:</strong> <span t-field="move.product_id.name"/>
+                                </div>
+                                <div class="mb8 col-md-12">
+                                    <strong>Initial Demand:</strong> <span t-field="move.product_uom_qty"/>
+                                </div>
+                                <div class="mb8 col-md-12">
+                                    <strong>Quantity Done:</strong> <span t-field="move.quantity_done"/> / <span t-field="move.product_uom_qty"/> <span t-field="move.product_uom"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card-body">
+                                    <div class="row pt-3">
+                                        <div class="w-100 mt-3">
+                                            <input type="hidden" id="move_line_rec"
+                                            name="move_line_rec" t-att-value="len(move.move_line_nosuggest_ids) if move and move.move_line_nosuggest_ids else None"/>
+                                            <table id="move_line_info" class="oe_list_content table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="1">To</th>
+                                                        <th t-if="move.product_id.tracking in ['serial', 'lot']" colspan="1">Lot/Serial Number Name</th>
+                                                        <th colspan="1">Destination Package</th>
+                                                        <th colspan="1">Done</th>
+                                                        <th t-if="is_uom" colspan="1">Unit of Mesure</th>
+                                                        <th class="o_delete_th" colspan="1"/>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-if="not move.picking_type_id.show_reserved" t-set="move_lines" t-value="move.move_line_nosuggest_ids"/>
+                                                    <t t-if="move.picking_type_id.show_reserved" t-set="move_lines" t-value="move.move_line_ids"/>
+                                                    <t t-if="move_lines">
+                                                    <t t-set="id" t-value="1"/>
+                                                    <t t-foreach="move_lines" t-as="move_line">
+                                                        <input type="hidden" t-attf-id="move_#{id}" t-att-value="move_line.id"/>
+                                                        <tr id="move_line_row" class="move_line_row">
+                                                            <td colspan="1">
+                                                                <div>
+                                                                    <input readonly="readonly" style="height: 30px;font-size: 12px;" type="text" class="form-control" t-att-value="move_line.location_dest_id.name or '' if move_line else ''"/>
+                                                                </div>
+                                                            </td>
+                                                            <td t-if="move.product_id.tracking in ['serial', 'lot'] and move.picking_type_id.use_create_lots and not move.picking_type_id.use_existing_lots" colspan="1">
+                                                                <div class="d-flex">
+                                                                    <input id="lot_name" style="height: 30px;font-size: 12px;" placeholder="Write your SN/LN one by one or copy paste a list." type="text" class="form-control"  t-attf-name="lot_name_#{id}" t-att-value="move_line.lot_name or '' if move_line else ''"/>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="1" t-if="move.product_id.tracking in ['serial', 'lot'] and move.picking_type_id.use_existing_lots">
+                                                                <div class="form-field">
+                                                                    <select required="required" id="lot_id" t-attf-name="lot_id_#{id}" class="form-control lot_id" style="height: 30px;font-size: 12px;">
+                                                                        <option value="">
+                                                                            <span>Select......</span>
+                                                                        </option>
+                                                                        <t t-foreach="lot_ids" t-as="lot_id">
+                                                                            <option t-att-selected="lot_id['id'] == move_line.lot_id.id if move_line and move_line.lot_id else None" t-att-value="lot_id['id']">
+                                                                                <span t-esc="lot_id['name']"/>
+                                                                            </option>
+                                                                        </t>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="1">
+                                                                <div>
+                                                                    <select style="height: 30px;font-size: 12px;" id="result_package_id" t-attf-name="result_package_id_#{id}" class="form-control">
+                                                                        <option t-att-selected="move_line and not move_line.result_package_id" value="">Select.......</option>
+                                                                        <t t-foreach="package_ids" t-as="package"><option t-att-selected="package['id'] == move_line.result_package_id.id if move_line and move_line.result_package_id else None" t-att-value="package['id']">
+                                                                                <t t-esc="package['name']"/>
+                                                                            </option>
+                                                                        </t>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="1">
+                                                                <div class="d-flex">
+                                                                    <input t-att-data-id="id" id="qty_done" style="height: 30px;font-size: 12px;" required="required" type="number" min="0" step="1.0" class="form-control o_required_modifier text-right"  t-attf-name="qty_done_#{id}" t-att-value="move_line.qty_done or '0.0' if move_line else '1.0'"/>
+                                                                </div>
+                                                            </td>
+                                                            <td t-if="is_uom" colspan="1">
+                                                                <div>
+                                                                    <input readonly="readonly" style="height: 30px;font-size: 12px;" type="text" class="form-control" t-att-value="move_line.product_uom_id.name or '' if move_line else ''"/>
+                                                                </div>
+                                                            </td>
+                                                            <td class="move_line_record_delete" colspan="1">
+                                                                <span id="move_line_delete" style="font-size:20px" class="fa fa-trash-o" name="delete"/>
+                                                            </td>
+                                                        </tr>
+                                                        <t t-set="id" t-value="id+1"/>
+                                                    </t>
+                                                </t>
+                                                <tr class="oe_button o_add_an_item_tr">
+                                                    <td colspan="7" class="text-left o_add_an_item">
+                                                        <a href="#"
+                                                           id="add_move_line_ids">Add Item
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt32">
+                                <button type="submit" class="btn btn-primary " id="create_beneficiary">Confirm</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="portal_immediate_transfer_form" name="Immediate Transfer">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="my_modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" t-if="type == 'immediate'" id="exampleModalLabel">Immediate Transfer?</h5>
+                        <h5 class="modal-title" t-if="type == 'initially'" id="exampleModalLabel">Processed more than initial demand</h5>
+                        <h5 class="modal-title" t-if="type == 'backorder'" id="exampleModalLabel">Create Backorder?</h5>
+                        <h5 class="modal-title" t-if="type == 'qty_not_done'" id="exampleModalLabel">Something went wrong !</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&amp;times</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/immediate/transfer" role="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="move" t-att-value="move.id"/>
+                            <div>
+                                <div class="card-body">
+                                    <t t-if="type == 'immediate'">
+                                        <p>
+                                            You have not recorded <i>done</i> quantities yet, by clicking on <i>apply</i>
+                                            Odoo will process all the quantities.
+                                        </p>
+                                    </t>
+                                    <t t-if="type == 'initially'">
+                                        <p>
+                                            You have processed more than what was initially
+                                            planned for the product <span t-esc="overprocessed_product_name"/>.
+                                        </p>
+                                        <p>
+                                            Are you sure you want to validate this picking?
+                                        </p>
+                                    </t>
+                                    <t t-if="type == 'backorder'">
+                                        <p t-if="if_moves">
+                                            You have processed more than what was initially planned for the product [FURN_6666] Acoustic Bloc Screens.
+
+                                            Are you sure you want to validate this picking?
+                                        </p>
+                                        <p>
+                                            You have processed less products than the initial demand.
+                                        </p><p class="text-muted">
+                                            Create a backorder if you expect to process the remaining
+                                            products later. Do not create a backorder if you will not
+                                            process the remaining products.
+                                        </p>
+                                    </t>
+                                    <t t-if="type == 'qty_not_done'">
+                                        <p>
+                                            You cannot validate a transfer if no quantites are reserved nor done. To force the transfer, switch in edit more and encode the done quantities.
+                                        </p>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="mt32">
+                                <a t-attf-href="/my/shiping/immediate/validate/#{move.id}?{{ keep_query() }}" type="submit" t-if="type == 'immediate'" class="btn btn-primary ">Apply</a>
+                                <a t-attf-href="/my/shiping/initial/validate/#{move.id}?{{ keep_query() }}" t-if="type == 'initially'" class="btn btn-primary ">Confirm</a>
+                                <a t-attf-href="/my/shiping/backorder/validate/#{move.id}?{{ keep_query() }}" t-if="type == 'backorder'" class="btn btn-primary ">Create Backorder</a>
+                                <a t-attf-href="/my/shiping/nobackorder/validate/#{move.id}?{{keep_query()}}" t-if="type == 'backorder'" class="btn btn-primary ">No Backorder</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

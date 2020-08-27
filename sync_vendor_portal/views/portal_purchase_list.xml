@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_purachase_layout" name="Portal layout: Purchase Quote entry" inherit_id="portal.portal_breadcrumbs" priority="35">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <!-- Hr Warning -->
+            <li t-if="page_name == 'purchase_quote' or quote_order and not p_order" t-attf-class="breadcrumb-item #{'active ' if not quote_order else ''}">
+                <a t-if="quote_order" t-attf-href="/my/purchase/quote?{{ keep_query() }}">Supplier Quotes</a>
+                <t t-else="">Supplier Quotes</t>
+            </li>
+            <li t-if="p_order" t-attf-class="breadcrumb-item #{'active ' if not p_order else ''}">
+                <a t-if="p_order" t-attf-href="/my/purchase/?{{ keep_query() }}">Purchase Orders</a>
+            </li>
+            <li t-if="quote_order" class="breadcrumb-item active">
+                <t t-esc="quote_order.name"/>
+            </li>
+
+        </xpath>
+    </template>
+
+    <template id="portal_purachase" name="Portal My Home : Purchase Quote entries" inherit_id="portal.portal_my_home" priority="45">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry" t-if="purchase_quote_count">
+                <t t-set="title">Supplier Quotes</t>
+                <t t-set="url" t-value="'/my/purchase/quote'"/>
+                <t t-set="count" t-value="purchase_quote_count"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

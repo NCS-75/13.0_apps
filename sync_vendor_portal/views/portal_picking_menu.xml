@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_shiping_layout" name="Portal layout: Shiping Order" inherit_id="portal.portal_breadcrumbs" priority="35">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <!-- Hr Warning -->
+            <li t-if="page_name == 'shiping' or shiping_order" t-attf-class="breadcrumb-item #{'active ' if not shiping_order else ''}">
+                <a t-if="shiping_order" t-attf-href="/my/shiping?{{ keep_query() }}">Supplier Shipments</a>
+                <t t-else="">Supplier Shipments</t>
+            </li>
+            <li t-if="shiping_order" class="breadcrumb-item active">
+                <t t-esc="shiping_order.name"/>
+            </li>
+
+        </xpath>
+    </template>
+
+    <template id="portal_shiping" name="Portal My Home : Shiping" inherit_id="portal.portal_my_home" priority="45">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry" t-if="shiping_count">
+                <t t-set="title">Supplier Shipments</t>
+                <t t-set="url" t-value="'/my/shiping'"/>
+                <t t-set="count" t-value="shiping_count"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

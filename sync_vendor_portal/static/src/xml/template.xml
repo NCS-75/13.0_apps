@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+  <t t-name="MoveLineRows">
+      <tr class="move_line_row" style="border-bottom: 0.5px solid #DEE2E6;">
+          <td colspan="1">
+              <div class="form-field location_dest_id">
+                    <input readonly="readonly" style="height: 30px;font-size: 12px;" type="text" class="form-control" t-att-value="location_dest_name"/>
+              </div>
+          </td>
+          <td colspan="1" t-if="is_serial_with_text == true and is_serial_with_selection == false">
+              <div class="form-field lot_name">
+                <input id="lot_name" placeholder="Write your SN/LN one by one or copy paste a list." type="text" class="form-control" style="height: 30px;font-size: 12px;"  t-attf-name="lot_name_#{rec}"/>
+              </div>
+          </td>
+          <td colspan="1" t-if="is_serial_with_selection == true">
+              <div class="form-field">
+                <select required="required" id="lot_id" t-attf-name="lot_id_#{rec}" class="form-control lot_id" style="height: 30px;font-size: 12px;">
+                    <option value="">
+                        <span>Select......</span>
+                    </option>
+                    <t t-foreach="lot_ids" t-as="lot_id">
+                        <option t-att-value="lot_id['id']">
+                            <span t-esc="lot_id['name']"/>
+                        </option>
+                    </t>
+                </select>
+              </div>
+          </td>
+          <td colspan="1">
+              <div class="form-field result_package_id">
+                <select id="result_package_id" t-attf-name="result_package_id_#{rec}" class="form-control" style="height: 30px;font-size: 12px;">
+                    <option value="">
+                        <span>Select......</span>
+                    </option>
+                    <t t-foreach="package_ids" t-as="package">
+                        <option t-att-value="package['id']">
+                            <span t-esc="package['name']"/>
+                        </option>
+                    </t>
+                </select>
+              </div>
+          </td>
+          <td colspan="1">
+              <div class="form-field qty_done">
+                  <input id="qty_done" t-att-data-id="rec" required="required" type="number" min="0" step="0.01" class="form-control o_required_modifier text-right" style="height: 30px;font-size: 12px;" t-attf-name="qty_done_#{rec}" value="1.0"/>
+              </div>
+          </td>
+          <td colspan="1" t-if="is_uom == true">
+              <div class="form-field">
+                <input readonly="readonly" style="height: 30px;font-size: 12px;" type="text" class="form-control" t-att-value="uom_name"/>
+              </div>
+          </td>
+          <td class="move_line_record_delete" width="50px">
+              <span style="font-size:24px" class="fa fa-trash-o" name="delete"/>
+          </td>
+      </tr>
+  </t>
+</templates>

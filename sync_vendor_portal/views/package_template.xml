@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_package_layout" name="Portal layout: Packages entry" inherit_id="portal.portal_breadcrumbs" priority="35">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <!-- Hr Warning -->
+            <li t-if="page_name == 'packages' or package_id" t-attf-class="breadcrumb-item #{'active ' if not package_id else ''}">
+                <a t-if="package_id" t-attf-href="/my/shipings/packages?{{ keep_query() }}">Packages</a>
+                <t t-else="">Packages</t>
+            </li>
+            <li t-if="package_id" class="breadcrumb-item active">
+                <t t-esc="package_id.name"/>
+            </li>
+
+        </xpath>
+    </template>
+    <template id="portal_my_packages" name="My Packages">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Packages</t>
+            </t>
+            <t t-if="not orders">
+                <div class="alert alert-warning mt8" role="alert">
+                    There is no any Package.
+                </div>
+            </t>
+
+            <p class="alert alert-danger mt8" t-if="request.params.get('error_msg')" role="alert">
+                <t t-esc="request.params.get('error_msg')"/>
+            </p>
+            <t t-if="orders">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th></th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="orders" t-as="order">
+                            <tr>
+                                <td><a t-attf-href="/my/package/#{order.id}?{{ keep_query() }}"><span t-field="order.display_name"/></a></td>
+                                <td><span t-if="order.location_id" t-field="order.location_id.name"/></td>
+                                <td>
+                                </td>
+                                <td><span t-if="order.company_id" t-field="order.company_id.name"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_package_view" name="Package Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_quote_sidebar">
+                <!-- Page Content -->
+                <div id="purchase_content" class="col-12 col-lg justify-content-end">
+                    <div class="o_portal_html_view shadow w-100">
+                        <form action="/my/purchase/qoute/update" role="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden"  id="package_id" name="package_id" t-att-value="package_id.id if package_id else None"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div t-if="error" class="col-lg-8 alert alert-danger">
+                                            <span t-esc="error"/>
+                                            <a style="position: absolute;top: 6px;right: 0;" t-attf-href="/my/packages/{{package_id.id}}" class="btn pull-right"><i class="fa fa-times-circle"/></a>
+                                        </div>
+                                        <div class="col-lg-6 d-flex">
+                                            <h4>
+                                                Package #
+                                                <span t-esc="package_id.name"/>
+                                            </h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <a target="_blank" t-attf-href="/my/package/print/#{package_id.id}?{{ keep_query() }}" id="button_print" class="btn btn-primary pull-right" style="margin-left: 10px;" title="Package Barcode with Content">Print</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb32 mt32">
+                                        <div class="col-md-12">
+                                            <strong>Company : </strong><t t-esc="package_id.company_id.name"/>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <strong>Owener : </strong><t t-esc="package_id.owner_id.name"/>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <strong>Location : </strong><t t-esc="package_id.location_id.name"/>
+                                        </div>
+                                    </div>
+                                    <table class="table table-sm mt32">
+                                        <thead class="alert alert-info">
+                                            <th colspan="3">Product</th>
+                                            <th colspan="1">Lot/Serial Nummber</th>
+                                            <th colspan="1">Quantity</th>
+                                            <th colspan="1">Unit of Measure</th>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="package_id.quant_ids" t-as="line">
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <span t-esc="line.product_id.name"/>
+                                                    </td>
+                                                    <td colspan="1">
+                                                        <span t-esc="line.lot_id.name"/>
+                                                    </td>
+                                                    <td colspan="1">
+                                                        <span t-esc="line.quantity"/>
+                                                    </td>
+                                                    <td colspan="1">
+                                                        <span t-esc="line.product_uom_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

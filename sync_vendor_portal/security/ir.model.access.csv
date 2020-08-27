@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_order,purchase_order,purchase.model_purchase_order,base.group_portal,1,1,0,0
+access_purchase_order_line,purchase_order_line,purchase.model_purchase_order_line,base.group_portal,1,1,0,0
+access_stock_picking,stock_picking,stock.model_stock_picking,base.group_portal,1,1,0,0
+access_stock_move,stock_move,stock.model_stock_move,base.group_portal,1,0,0,0
+access_stock_move_line,stock_move_line,stock.model_stock_move_line,base.group_portal,1,1,0,0
+access_stock_quant_package,stock.quant.package,stock.model_stock_quant_package,base.group_portal,1,1,0,0
+access_stock_location,stock.location,stock.model_stock_location,base.group_portal,1,1,0,0

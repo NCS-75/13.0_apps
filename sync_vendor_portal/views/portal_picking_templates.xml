@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Website Shiping Editor assets">
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/sync_vendor_portal/static/src/scss/website_shiping.scss" />
+             <script type="text/javascript" src="/sync_vendor_portal/static/src/js/stock_move_line.js"/>
+        </xpath>
+    </template>
+    <template id="portal_my_shiping" name="My Purchase Quotes">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Supplier Shipments</t>
+            </t>
+            <t t-if="not orders">
+                <div class="alert alert-warning mt8" role="alert">
+                    There is no any Purchase Quotes.
+                </div>
+            </t>
+
+            <p class="alert alert-danger mt8" t-if="request.params.get('error_msg')" role="alert">
+                <t t-esc="request.params.get('error_msg')"/>
+            </p>
+            <t t-if="orders">
+                <t t-call="portal.portal_table">
+                    <t t-foreach="grouped_shiping" t-as="orders">
+                        <thead>
+                            <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                                <th>
+                                    <t t-if="orders">
+                                        <t t-if="groupby == 'none'">Shipment #</t>
+                                        <t t-if="groupby == 'state'">
+                                            <em class="font-weight-normal text-muted">Status:</em>
+                                            <span t-field="orders[0].state"/>
+                                        </t>
+                                    </t>
+                                </th>
+                                <th>Date</th>
+                                <th>Source Document</th>
+                                <th t-if="orders.mapped('backorder_id')">Back Order of</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="orders" t-as="order">
+                                <tr>
+                                    <td><a t-attf-href="/my/shiping/#{order.id}?{{ keep_query() }}"><span t-field="order.name"/></a></td>
+                                    <td><span t-field="order.scheduled_date" t-options='{"widget": "date"}'/></td>
+                                    <td>
+                                       <span t-field="order.origin"/>
+                                    </td>
+                                    <td t-if="orders.mapped('backorder_id')">
+                                       <span t-field="order.backorder_id"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="order.state == 'draft'">
+                                          <span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> Draft</span>
+                                        </t>
+                                        <t t-if="order.state == 'waiting'">
+                                          <span class="badge badge-secondory"><i class="fa fa-fw fa-spinner"/>Waiting Another Operation</span>
+                                        </t>
+                                        <t t-if="order.state == 'confirm'">
+                                          <span class="badge badge-primary"><i class="fa fa-fw fa-shopping-cart"/> waiting</span>
+                                        </t>
+                                        <t t-if="order.state == 'assigned'">
+                                          <span class="badge badge-dark"><i class="fa fa-fw fa-paper-plane"/> Ready</span>
+                                        </t>
+                                        <t t-if="order.state == 'done'">
+                                          <span class="badge badge-success"><i class="fa fa-check"/> Done</span>
+                                        </t>
+                                        <t t-if="order.state == 'cancel'">
+                                          <span class="badge badge-danger"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_shiping_order" name="Shiping Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_shiping_sidebar">
+                <!-- Page Content -->
+                <div id="shiping_content" class="col-12 col-lg justify-content-end">
+                    <div class="o_portal_html_view o_shiping_html_view shadow w-100">
+                        <form action="/my/shiping/update" role="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden"  id="order_id" name="order_id" t-att-value="shiping_order.id if shiping_order else None"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div t-if="error" class="col-lg-8 alert alert-danger">
+                                            <span t-esc="error"/>
+                                            <a style="position: absolute;top: 6px;right: 0;" t-attf-href="/my/shiping/{{shiping_order.id}}" class="btn pull-right"><i class="fa fa-times-circle"/></a>
+                                        </div>
+                                        <div class="col-lg-6 d-flex">
+                                            <h4>
+                                                <t>
+                                                Shipment #
+                                                </t>
+                                                <span t-esc="shiping_order.name"/>
+                                            </h4>
+                                            <a t-if="shiping_order.state in ['waiting','confirmed'] or shiping_order.show_validate == True" id="button_valid" class="btn btn-info" style="margin-left: 10px;">Validate</a>
+                                            <a t-if="shiping_order.show_mark_as_todo == True" t-attf-href="/my/shiping/confirm/#{shiping_order.id}?{{ keep_query() }}" id="button_confirm" class="btn btn-primary" style="margin-left: 10px;">Mark as Todo</a>
+                                            <t t-if="shiping_order.state not in ['draft','cancel']">
+                                                <a t-if="shiping_order.is_locked == True" t-attf-href="/my/shiping/unlock/#{shiping_order.id}?{{ keep_query() }}" id="button_unlock" class="btn btn-primary" style="margin-left: 10px;">Unlock</a>
+                                            </t>
+                                            <t t-if="shiping_order.state != 'cancel' and shiping_order.state != 'done'">
+                                                <a t-if="shiping_order.is_locked == True" t-attf-href="/my/shiping/cancel/#{shiping_order.id}?{{ keep_query() }}" id="button_cancel" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
+                                            </t>
+                                            <a t-if="shiping_order.is_locked == False"  t-attf-href="/my/shiping/unlock/#{shiping_order.id}?{{ keep_query() }}" id="button_lock" class="btn btn-primary" style="margin-left: 10px;">Lock</a>
+                                        </div>
+                                        <div class="col-lg-6 text-right">
+                                            <button type="submit" t-if="shiping_order.state in ['draft', 'assigned', confirmed] and shiping_order.is_locked == True" id="button_update" title="Save Changes" class="btn btn-info" style="margin-left: 10px;">Update</button>
+                                            <t t-if="shiping_order.state != 'cancel'">
+                                                <a target="_blank" t-if="shiping_order.state in ['assigned', 'partially_available', 'done', 'confirmed', 'waiting'] and shiping_order.is_locked == True" t-attf-href="/my/shiping/print/#{shiping_order.id}?{{ keep_query() }}" id="button_print_rfq" class="btn btn-primary" style="margin-left: 10px;" title="Print Delivery Operations">Print DO</a>
+                                            </t>
+                                            <a target="_blank" t-attf-href="/my/picking/print/#{shiping_order.id}?{{ keep_query() }}" id="button_print_rfq" class="btn btn-primary" style="margin-left: 10px;" title="Print Picking Operations">Print PO</a>
+                                            <t t-if="shiping_order.state == 'draft'">
+                                              <span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> Draft</span>
+                                            </t>
+                                            <t t-if="shiping_order.state == 'waiting'">
+                                              <span class="badge badge-secondory"><i class="fa fa-fw fa-spinner"/>Waiting Another Operation</span>
+                                            </t>
+                                            <t t-if="shiping_order.state == 'confirm'">
+                                              <span class="badge badge-success"><i class="fa fa-fw fa-shopping-cart"/> waiting</span>
+                                            </t>
+                                            <t t-if="shiping_order.state == 'assigned'">
+                                              <span class="badge badge-dark"><i class="fa fa-fw fa-paper-plane"/> Ready</span>
+                                            </t>
+                                            <t t-if="shiping_order.state == 'done'">
+                                              <span class="badge badge-success"><i class="fa fa-check"/> Done</span>
+                                            </t>
+                                            <t t-if="shiping_order.state == 'cancel'">
+                                              <span class="badge badge-danger"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                   <div class="mb8">
+                                        <div t-if="shiping_order.has_packages" class="pull-right">
+                                            <a t-attf-href="/my/shipings/packages/#{shiping_order.id}?{{ keep_query() }}" class="btn btn-secondary btn-md">
+                                                <span class="fa fa-cubes"></span>
+                                                <span>Packages</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mb8" t-field="shiping_order.partner_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                    <div class="row mb32 mt32">
+                                        <div class="col-md-6">
+                                            <strong>Receive From : </strong><t t-esc="shiping_order.partner_id.name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Scheduled Date : </strong><t t-esc="shiping_order.scheduled_date"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Operation Type : </strong><t t-esc="shiping_order.picking_type_id.name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Source Document : </strong><t t-esc="shiping_order.origin"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Destination Location : </strong><t t-esc="shiping_order.location_dest_id.name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Assign Owner : </strong><t t-esc="shiping_order.owner_id.name"/>
+                                        </div>
+                                        <div class="col-md-6" t-if="shiping_order.backorder_id and shiping_order.backorder_id.name">
+                                            <strong>Back Order of : </strong><t t-esc="shiping_order.backorder_id.name"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <strong>Product</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-left">
+                                            <strong>Description</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-right">
+                                            <strong>Demand</strong>
+                                        </div>
+                                        <div class="col-lg-2 text-right">
+                                            <strong>Done</strong>
+                                        </div>
+                                        <div class="col-lg-1">
+                                        </div>
+                                    </div>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-foreach="shiping_order.move_ids_without_package" t-as="move_line">
+                                        <input type="hidden" t-att-value="move_line.id" t-attf-name="rec_#{move_line.id}"/>
+                                        <div class="row purchases_vertical_align mt-1">
+                                            <div class="col-lg-1 text-center">
+                                                <img t-att-src="image_data_uri(resize_to_48(move_line.product_id.image_128))" alt="Product"/>
+                                            </div>
+                                            <div id='product_name' class="col-lg-4">
+                                                <span t-esc="move_line.name"/>
+                                            </div>
+                                            <div id='product_description' class="col-lg-2">
+                                                <span t-esc="move_line.description_picking"/>
+                                            </div>
+                                            <div class="col-lg-2 text-right">
+                                                <input required="required" t-att-readonly="'readonly' if move_line and move_line.is_initial_demand_editable == False or move_line.show_operations == True or move_line.is_locked == True or move_line.is_initial_demand_editable == False else None" step="0.01" type="number" min="0" class="form-control o_required_modifier text-right" t-attf-name="product_uom_qty_#{move_line.id}" t-att-value="move_line.product_uom_qty or '0.0' if move_line else '0.0'"/>
+                                            </div>
+                                            <div class="col-lg-2 text-right">
+                                                <input required="required" readonly="readonly" id="quantity_done" type="number" min="0" step="0.01" class="form-control o_required_modifier text-right"  t-attf-name="quantity_done_#{move_line.id}" t-att-value="move_line.quantity_done or '0.0' if move_line else '0.0'"/>
+                                            </div>
+                                            <div class="col-lg-1 pt-2 text-left">
+                                                <span id="done_picking" t-att-data-done="move_line.quantity_done or '0.0' if move_line else '0.0'" t-att-data-id="move_line.id" t-att-data-stock="shiping_order.id" class="fa fa-list" style="cursor: pointer;"></span>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-if="shiping_order.picking_type_id.show_entire_packs and shiping_order.package_level_ids">
+                                        <div class="row mt32">
+                                            <div class="col-lg-8">
+                                                <h4>
+                                                    Package Detail
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <table class="table table-sm mt32">
+                                            <thead class="alert alert-info">
+                                                <th colspan="3">Package</th>
+                                                <th colspan="1">To</th>
+                                                <th colspan="1">state</th>
+                                                <th colspan="1">Done</th>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="shiping_order.package_level_ids" t-as="line">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <span t-esc="line.package_id.name"/>
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <span t-esc="line.location_dest_id.name"/>
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <span t-esc="line.state"/>
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <input type="checkbox" t-att-checked="line.is_done" id="star3" disabled="disabled"/>
+                                                            <!-- <span t-esc="line.is_done"/> -->
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <div t-if="shiping_order.state not in ['draft', 'done', 'cancel']" class="row mt32">
+                                        <div class="col-lg-11">
+                                            <a t-attf-href="/my/shiping/put/into_pack/#{shiping_order.id}?{{ keep_query() }}" class="btn pull-left btn-primary btn-md">Put in Pack</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mt32">
+                                        <div class="col-lg-8">
+                                            <h4>
+                                                <t>
+                                                Additional Information
+                                                </t>
+                                            </h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group name_des">
+                                                <label class="col-lg-4  o_label" for="product_id">Responsible</label>
+                                                <div class="col-lg-8">
+                                                    <input readonly="readonly" class="form-control" t-att-value="shiping_order.user_id.name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group name_des">
+                                                <label class="col-md-4  o_label" for="priority">Priority</label>
+                                                <div class="col-md-8">
+                                                    <div class="rate">
+                                                        <input type="radio" t-att-checked="shiping_order.priority == '3'" id="star3" name="priority" value="3"/>
+                                                        <label for="star3" title="Very Urgent">3 stars</label>
+                                                        <input type="radio" t-att-checked="shiping_order.priority == '2'" id="star2" name="priority" value="2"/>
+                                                        <label for="star2" title="Urgent">2 stars</label>
+                                                        <input type="radio" t-att-checked="shiping_order.priority == '1'" id="star1" name="priority" value="1"/>
+                                                        <label for="star1" title="Normal">1 star</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <textarea placeholder="Notes" required="required" class="form-control text-left" name="note"><t t-esc="shiping_order.note if shiping_order else ''"/></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mt32" t-if="shiping_order.partner_id">
+                                        <div class="col-12 col-md-6 pb-2" t-if="shiping_order.partner_id.user_id">
+                                            <strong>Contact</strong>
+                                            <div class="row">
+                                                <div class="col flex-grow-0 pr-3">
+                                                    <img t-if="shiping_order.partner_id.user_id.image_1024" class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(shiping_order.partner_id.user_id.image_1024)" alt="Contact"/>
+                                                    <img t-else="" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" alt="Contact"/>
+                                                </div>
+                                                <div class="col pl-md-0">
+                                                    <div t-field="shiping_order.partner_id.user_id" t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mt32" id="purchase_communication">
+                    <h4><strong>Message and Communication History</strong></h4>
+                    <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="shiping_order"/>
+                    <t t-set="pid" t-value="pid"/>
+                    <t t-set="hash" t-value="hash"/>
+                    </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
