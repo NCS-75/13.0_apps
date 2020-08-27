@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="purchase_order_form_quote" model="ir.ui.view">
+        <field name="name">purchase.order.form.payment</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <button name='button_confirm' position="before">
+                <button name="open_quotation" type="object" class="o_open_quotation" states="sent" string="Preview"/>
+            </button>
+            <field name='date_order' position="after">
+                <label for="po_template_id"/>
+                <div>
+                    <field name="po_template_id" context="{'company_id': company_id}" options="{'no_create': True, 'no_open': True}"/>
+                </div>
+                <label for="validity_date"/>
+                <div>
+                    <field name="validity_date"/>
+                </div>
+            </field>
+            <xpath expr="//page[@name='purchase_delivery_invoice']/group/group" position="inside">
+                <field name="require_payment" widget="radio"/>
+                <field name="website_description" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_purchase_quote_template" action="action_purchase_quotation_template" parent="purchase.menu_purchase_config" sequence="1" name="Quotation Templates"/>
+
+    <menuitem id='payment_acquirer_menu_purchase' action='payment.action_payment_acquirer' parent='purchase.menu_purchase_config' sequence='3' name='Payment Acquirers'/>
+</odoo>

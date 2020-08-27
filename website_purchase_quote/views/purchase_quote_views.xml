@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_quote_template_search" model="ir.ui.view">
+        <field name="name">purchase.quote.template.search</field>
+        <field name="model">purchase.quote.template</field>
+        <field name="arch" type="xml">
+            <search string="Search Quotation Template">
+               <filter string="Archived" name="inactive" domain="[('active','=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_purchase_quote_template_form">
+        <field name="name">purchase.quote.template.form</field>
+        <field name="model">purchase.quote.template</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Quotation Template">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button string="Edit Template" type="object" name="open_template" class="oe_stat_button" icon="fa-pencil"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Quotation Template"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                           <label for="number_of_days" string="Quotation expires after"/>
+                           <div id="number_of_days">
+                               <field name="number_of_days" class="oe_inline"/> days
+                           </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                        <field name="quote_line">
+                            <form string="Purchase Quotation Template Lines">
+                                <group>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <label for="product_uom_qty"/>
+                                        <div>
+                                            <field name="product_uom_qty" class="oe_inline"/>
+                                        </div>
+                                        <field name="price_unit" invisible="1"/>
+
+                                    </group>
+                                </group>
+                                <notebook colspan="4">
+                                    <page string="Description">
+                                        <field name="name" />
+                                    </page>
+                                    <page string="Website Description">
+                                        <field name="website_description" />
+                                    </page>
+                                </notebook>
+                            </form>
+                            <tree string="Purchase Quotation Template Lines" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="product_uom_qty"/>
+                                <field name="product_uom_id" groups="uom.group_uom"/>
+                                <field name="price_unit" invisible="1"/>
+                                <field name="website_description" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Confirmation">
+                        <group>
+                            <field name="require_payment" widget="radio"/>
+                            <field name="mail_template_id"/>
+                        </group>
+                    </page>
+                    </notebook>
+                    <field name="website_description" invisible="1"/>
+                    <field name="note" nolabel="1"
+                        placeholder="The Administrator can set default Terms &amp; Conditions in Purchase Settings. Terms set here will show up instead if you select this quotation template."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_quote_template_tree" model="ir.ui.view">
+        <field name="name">purchase.quote.template.tree</field>
+        <field name="model">purchase.quote.template</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Quotation Template">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_purchase_quotation_template" model="ir.actions.act_window">
+        <field name="name">Quotation Templates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.quote.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create your template.
+            </p><p>
+                Use templates to create polished, professional quotes in minutes.
+                Send these quotes by email and let your customers sign online.
+                Use cross-selling and discounts to push and boost your purchase.
+            </p>
+        </field>
+    </record>
+
+</odoo>
